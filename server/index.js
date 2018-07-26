@@ -20,9 +20,10 @@ authConfig(app, express);
 
 app.use('/', routes);
 
-var results = newsAPI.scraping();
-if(!results) {
-  console.log("Succesful scrape of articles with News API")
-}
+// News API Call here
+// var results = newsAPI.scraping();
+// if(!results) {
+//   console.log("Succesful scrape of articles with News API")
+// }
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));

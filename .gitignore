@@ -37,3 +37,5 @@ coverage
 
 # node-waf configuration
 .lock-wscript
+
+.env
