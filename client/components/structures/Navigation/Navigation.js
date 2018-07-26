@@ -39,7 +39,7 @@ export default function Navigation(props) {
         <div className="nav-left">
           <Link to={auth ? '/home' : '/'} className="nav-item">
             <h3 className="title is-3 logo">
-              MERN Boilerplate
+              Adulting
             </h3>
           </Link>
           {auth && (
