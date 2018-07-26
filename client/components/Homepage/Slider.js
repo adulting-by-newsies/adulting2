@@ -35,12 +35,20 @@ class Demo extends React.PureComponent {
       });
     }
   };
+
+  handleClick = (e) => {
+    e.preventDefault();
+    console.log('The link was clicked.');
+  }
+
   render() {
+
     let { leftIcon, rightIcon } = this.state;
     return (
+
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md-12" style={{ paddingTop: "20px" }}>
+          <div className="col-md-12" style={{ paddingTop: "20px", paddingBottom: "20px" }}>
             <div className="btn-group">
               <button type="button" className="btn btn-primary" onClick={this.slidePrev}>
                 Prev Article
@@ -53,7 +61,7 @@ class Demo extends React.PureComponent {
           <div className="col-md-12" style={{ marginTop: 20 }}>
             <React_Bootstrap_Carousel
               animation={true}
-              autoplay={this.state.autoplay}
+              // autoplay={this.state.autoplay}
               slideshowSpeed={7000}
               defaultActiveIndex={0}
               leftIcon={leftIcon}
@@ -61,40 +69,55 @@ class Demo extends React.PureComponent {
               onSelect={this.onSelect}
               ref={r => (this.slider = r)}
             >
-              <div style={{ height: 700 }}>
+              <div style={{ height: 600, }}>
+                <div style={{ fontSize: 36 }}>
+                  <h1> Politics </h1>
+                </div>
                 <img
-                  style={{ width: "100%", height: "100%" }}
+                  style={{ width: "90%", height: "100%" }}
                   src="https://static01.nyt.com/images/2018/07/27/us/politics/27dc-obstruct1/07dc-tamper-superJumbo.jpg?quality=90&auto=webp"
                 />
-                <div className="carousel-caption">Mueller Examining Trump’s Tweets in Wide-Ranging Obstruction Inquiry</div>
+                <div className="carousel-caption" style={{ fontSize: 24 }}>Mueller Examining Trump’s Tweets in Wide-Ranging Obstruction Inquiry</div>
               </div>
-              <div style={{ height: 700 }}>
+              <div style={{ height: 600 }}>
+                <div style={{ fontSize: 36 }}>
+                  <h1> Sports </h1>
+                </div>
                 <img
-                  style={{ width: "100%", height: "100%" }}
+                  style={{ width: "90%", height: "100%" }}
                   src="https://static01.nyt.com/images/2018/07/26/sports/26yankeesweb1/merlin_141691740_466ff265-2a8e-428b-934e-fe22c61a8ba4-superJumbo.jpg?quality=90&auto=webp"
                 />
-                <div className="carousel-caption">Yankees Leave Florida With No Homers and a Bigger A.L. East Deficit</div>
+                <div className="carousel-caption" style={{ fontSize: 24 }}>Yankees Leave Florida With No Homers and a Bigger A.L. East Deficit</div>
               </div>
-              <div style={{ height: 700 }}>
+              <div style={{ height: 600 }}>
+                <div style={{ fontSize: 36 }}>
+                  <h1> Business </h1>
+                </div>
                 <img
-                  style={{ width: "100%", height: "100%" }}
+                  style={{ width: "90%", height: "100%" }}
                   src="https://images.tmz.com/2018/07/26/0726-john-schnatter-papa-johns-getty-composite-3.jpg"
                 />
-                <div className="carousel-caption">PAPA JOHNSUES PAPA JOHNS... They Did Me Dirty</div>
+                <div className="carousel-caption" style={{ fontSize: 24 }}>PAPA JOHN SUES PAPA JOHNS... They Did Me Dirty</div>
               </div>
-              <div style={{ height: 700 }}>
+              <div style={{ height: 600 }}>
+                <div style={{ fontSize: 36 }}>
+                  <h1> Science </h1>
+                </div>
                 <img
-                  style={{ width: "100%", height: "100%" }}
+                  style={{ width: "90%", height: "100%" }}
                   src="http://www.sciencemag.org/sites/default/files/styles/article_main_large/public/720cs_80727X_Clouds_0.jpg?itok=TFZV4mf_"
                 />
-                <div className="carousel-caption">Science insurgents plot a climate model driven by artificial intelligence</div>
+                <div className="carousel-caption" style={{ fontSize: 24 }}>Science insurgents plot a climate model driven by artificial intelligence</div>
               </div>
-              <div style={{ height: 700 }}>
+              <div style={{ height: 600 }}>
+                <div style={{ fontSize: 36 }}>
+                  <h1> Technology </h1>
+                </div>
                 <img
-                  style={{ width: "100%", height: "100%" }}
+                  style={{ width: "90%", height: "100%" }}
                   src="https://techcrunch.com/wp-content/uploads/2018/04/gettyimages-944718240.jpeg?w=1390&crop=1"
                 />
-                <div className="carousel-caption">Facebook officially loses $123 billion in value</div>
+                <div className="carousel-caption" style={{ fontSize: 24 }}>Facebook officially loses $123 billion in value</div>
               </div>
               
             </React_Bootstrap_Carousel>
