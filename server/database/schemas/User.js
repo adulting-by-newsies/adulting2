@@ -16,6 +16,10 @@ const userSchema = new Schema({
   bio: { type: String, maxlength: 240 },
   created_at: { type: Date, default: Date.now, immutable: true },
   updated_at: { type: Date },
+  friendList: { type: String, default: undefined},
+  dailyScore: {type: {type: Date, type: Number}, required: false},
+  totalScore: {type: Number, default: 0},
+  savedArticles: {type: {type: [Schema.Types.ObjectId], type: String}},
 });
 
 userSchema.plugin(autoIncrement, { model: 'User', field: 'user', startAt: 1 });
