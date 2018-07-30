@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Checkbox from './Checkbox'
 
 export default function Profile(props) {
   const {
-    edited, save, refresh, usernameCase, firstName, lastName, bio, profilePic,
-    updateFirstName, updateLastName, updateBio, updateProfilePic,
+    edited, save, refresh, usernameCase, firstName, lastName, bio, profilePic, checkboxes,
+    updateFirstName, updateLastName, updateBio, updateProfilePic, updatePreferences,
   } = props;
 
   const charactersRemaining = 240 - bio.length;
-
+  
   return (
     <div className="profile-settings box">
       <span className="icon is-medium is-pulled-right" onClick={refresh} onKeyPress={refresh}>
@@ -80,6 +81,13 @@ export default function Profile(props) {
               </div>
             </div>
           </div>
+          
+          <div>
+            <br />
+            
+            {checkboxes()}
+
+          </div>
 
           <div className="field">
             <label htmlFor="bio" className="label">
@@ -121,6 +129,7 @@ Profile.propTypes = {
   updateLastName: PropTypes.func.isRequired,
   updateBio: PropTypes.func.isRequired,
   updateProfilePic: PropTypes.func.isRequired,
+  updatePreferences:PropTypes.func.isRequired,
   refresh: PropTypes.func.isRequired,
   save: PropTypes.func.isRequired,
 };
