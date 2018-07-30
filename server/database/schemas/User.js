@@ -14,6 +14,7 @@ const userSchema = new Schema({
   first_name: { type: String, maxlength: 20 },
   last_name: { type: String, maxlength: 20 },
   bio: { type: String, maxlength: 240 },
+  preferences: { type: Array},
   created_at: { type: Date, default: Date.now, immutable: true },
   updated_at: { type: Date },
   friendList: { type: String, default: undefined},
