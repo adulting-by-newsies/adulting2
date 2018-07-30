@@ -6,20 +6,24 @@ var Schema = mongoose.Schema;
 // Using the Schema constructor, create a new NoteSchema object
 // This is similar to a Sequelize model
 var ArticleSchema = new Schema({
-  snapshotSum: {
-    type: String
+  description: {
+    type: String,
     required: true
   },
-  href: {
-    type: String
+  title :{
+    type: String,
     required: true
+  },
+  url: {
+    type: String,
+    required: true
+  },
+  urlToImage: {
+    type: String,
+    required: false
   },
   category: {
-    type: String
-    required: true
-  },
-  ID: {
-    type: Number
+    type: String,
     required: true
   },
 
