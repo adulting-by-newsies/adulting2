@@ -14,12 +14,12 @@ var ArticleSchema = new Schema({
     type: String
     required: true
   },
+  hrefToImage: {
+    type: String
+    required: false
+  },
   category: {
     type: String
-    required: true
-  },
-  ID: {
-    type: Number
     required: true
   },
 
