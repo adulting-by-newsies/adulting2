@@ -7,19 +7,19 @@ var Schema = mongoose.Schema;
 // This is similar to a Sequelize model
 var ArticleSchema = new Schema({
   snapshotSum: {
-    type: String
+    type: String,
     required: true
   },
   href: {
-    type: String
+    type: String,
     required: true
   },
   hrefToImage: {
-    type: String
+    type: String,
     required: false
   },
   category: {
-    type: String
+    type: String,
     required: true
   },
 
