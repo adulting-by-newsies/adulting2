@@ -21,9 +21,17 @@ authConfig(app, express);
 app.use('/', routes);
 
 // News API Call here
-// var results = newsAPI.scraping();
-// if(!results) {
-//   console.log("Succesful scrape of articles with News API")
-// }
+var results = [];
+
+// This function call sets results array to the response
+// of aggregating all the articles
+newsAPI.scrapeArticles().then(function(response){
+  console.log("In server");
+  results = response;
+  for (var i = 0; i < 100; i++){
+    console.log("Title: " + results[i].title);
+    console.log("Category: " + results[i].category)
+  }
+})
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));
