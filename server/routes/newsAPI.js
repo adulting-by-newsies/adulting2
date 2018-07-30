@@ -9,6 +9,9 @@ const interestCategoriesEverything = ["culture", "worldnews","cooking", "lifesty
 const allCategories = ["sports", "politics","science", "technology", "health", "business", "culture", "worldnews","cooking", "lifestyle"]
 var userDetails;
 
+// Add in the article schema here
+const Article          = require('../database/schemas/Article')
+
 // This API call targets categories that the newsapi supports 'natively'
 // with its topHeadlines function.
 // This works for 6 of our 10 categories.
@@ -54,6 +57,7 @@ function scrapeArticles() {
   // This will return a massive object that is an aggregate
   // of all the results
   return Promise.all(
+  // Promise.all(
     [
       topCategoryAPICall(interestCategoriesTop[0]), 
       topCategoryAPICall(interestCategoriesTop[1]), 
@@ -81,15 +85,30 @@ function scrapeArticles() {
           // make it easier to parse through so you know what class of article
           // you're looking at
           article.category = allCategories[i]
+
+          // If the description is null, let's just say 'description not available'
+          if (!article.description) {
+            console.log("Adding placeholder description for article at " + total);
+            article.description = "No description available";
+          }
           // Add to the array
-          listOfArticles.push(article);
+          Article.create(article)
+            .then(function(dbArticle) {
+              // View the added result in the console
+              // console.log(dbArticle);
+            })
+            .catch(function(err) {
+              // If an error occurred, send it to the client
+              // return res.json(err);
+              console.log(err);
+            });
           // This is the escape for when you've added 10 articles
           return j === 10;
         })
         console.log("Captured " + total + " articles")
       }
       console.log("Returning now ");
-      return listOfArticles;
+      // return listOfArticles;
   });
 
 }
