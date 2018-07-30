@@ -7,7 +7,8 @@ const newsapi = new NewsAPI(process.env.NEWS_API_KEY);
 const interestCategoriesTop = ["sports", "politics","science", "technology", "health", "business"]
 const interestCategoriesEverything = ["culture", "worldnews","cooking", "lifestyle"]
 const allCategories = ["sports", "politics","science", "technology", "health", "business", "culture", "worldnews","cooking", "lifestyle"]
-var userDetails;
+
+const db = require('../database/schemas');
 
 // This API call targets categories that the newsapi supports 'natively'
 // with its topHeadlines function.
@@ -83,6 +84,7 @@ function scrapeArticles() {
           article.category = allCategories[i]
           // Add to the array
           listOfArticles.push(article);
+
           // This is the escape for when you've added 10 articles
           return j === 10;
         })
