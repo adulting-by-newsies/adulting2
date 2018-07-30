@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import * as R from 'ramda';
 import { validateName } from '_utils/validation';
 import Profile from './Profile';
+import Checkbox from './Checkbox'
+
+const categories = ["Sports", "Politics", "Science", "Technology", "Health", "Business", "Culture", "World News", "Cooking", "Lifestyle"]
 
 export default class ProfileContainer extends Component {
   static propTypes = {
@@ -12,6 +15,7 @@ export default class ProfileContainer extends Component {
       lastName: PropTypes.string,
       bio: PropTypes.string,
       profilePic: PropTypes.string,
+      profilePreferences: PropTypes.array
     }).isRequired,
     attemptGetUser: PropTypes.func.isRequired,
     attemptUpdateUser: PropTypes.func.isRequired,
@@ -22,10 +26,12 @@ export default class ProfileContainer extends Component {
     lastName: this.props.user.lastName || '',
     bio: this.props.user.bio || '',
     profilePic: this.props.user.profilePic || '',
+    preferences: this.props.user.preferences || [],
     firstNameEdited: false,
     lastNameEdited: false,
     bioEdited: false,
     profilePicEdited: false,
+    preferencesEdited: false,
   }
 
   resetState = () => this.setState({
@@ -33,10 +39,12 @@ export default class ProfileContainer extends Component {
     lastName: this.props.user.lastName || '',
     bio: this.props.user.bio || '',
     profilePic: this.props.user.profilePic || '',
+    preferences: this.props.user.preferences || [],
     firstNameEdited: false,
     lastNameEdited: false,
     bioEdited: false,
     profilePicEdited: false,
+    preferencesEdited: false,
   });
 
   updateFirstName = e => {
@@ -55,6 +63,20 @@ export default class ProfileContainer extends Component {
 
   updateProfilePic = e => this.setState({ profilePic: e.target.value, profilePicEdited: true })
 
+  updatePreferences = e => {
+    console.log('event just happened')
+    let arr = this.state.preferences
+    const index = arr.indexOf(e.target.value)
+    
+    if(index === -1){
+      arr.push(e.target.value)  
+    }else{
+      arr.splice(index,1)
+    }
+    
+    this.setState({ preferences: arr, preferencesEdited: true})
+  }
+
   refresh = () => {
     this.props.attemptGetUser()
       .then(() => this.resetState())
@@ -63,26 +85,53 @@ export default class ProfileContainer extends Component {
 
   save = () => {
     const updatedUser = {};
+    const updatedUserMongo = {};
 
-    if (this.state.firstNameEdited) { updatedUser.first_name = this.state.firstName; }
-    if (this.state.lastNameEdited) { updatedUser.last_name = this.state.lastName; }
+    if (this.state.firstNameEdited) { updatedUser.first_name = this.state.firstName; updatedUserMongo.firstName = this.state.firstName;}
+    if (this.state.lastNameEdited) { updatedUser.last_name = this.state.lastName; updatedUserMongo.lastName = this.state.lastName;}
     if (this.state.profilePicEdited) { updatedUser.profile_pic = this.state.profilePic; }
     if (this.state.bioEdited) { updatedUser.bio = this.state.bio; }
-
+    if (this.state.preferencesEdited) { updatedUser.preferences = this.state.preferences; updatedUserMongo.preferences = this.state.preferences}
     if (!R.isEmpty(updatedUser)) {
       this.props.attemptUpdateUser(updatedUser)
-        .then(() => this.resetState())
+        .then(() => {
+            this.resetState();
+            this.resetPreferences();
+        })
         .catch(R.identity);
     }
+
   }
+
+  startChecked(label, preferences){
+    if(preferences.indexOf(label) !== -1){
+      return true;
+    }else{
+      return false
+    }
+  }
+
+  createCheckbox = label => (
+      <Checkbox
+        label = {label}
+        key = {label}
+        updatePreferences = {this.updatePreferences}
+        startChecked = {this.startChecked(label, this.state.preferences)}
+      />
+  )
+
+  createCheckboxes = () => (
+    categories.map(this.createCheckbox)
+  )
+  
 
   render() {
     const {
       firstName, lastName, bio, profilePic, firstNameEdited, lastNameEdited,
-      bioEdited, profilePicEdited,
+      bioEdited, profilePicEdited, preferencesEdited
     } = this.state;
 
-    const edited = firstNameEdited || lastNameEdited || bioEdited || profilePicEdited;
+    const edited = firstNameEdited || lastNameEdited || bioEdited || profilePicEdited || preferencesEdited;
 
     return (
       <Profile
@@ -92,6 +141,7 @@ export default class ProfileContainer extends Component {
         lastName={lastName}
         bio={bio}
         profilePic={profilePic}
+        checkboxes={this.createCheckboxes}
         save={this.save}
         editProfile={this.editProfile}
         refresh={this.refresh}
@@ -99,6 +149,7 @@ export default class ProfileContainer extends Component {
         updateLastName={this.updateLastName}
         updateBio={this.updateBio}
         updateProfilePic={this.updateProfilePic}
+        updatePreferences={this.updatePreferences}
       />
     );
   }

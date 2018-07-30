@@ -119,6 +119,7 @@ export const attemptUpdateUser = updatedUser => dispatch =>
         position: 'tr',
         autoDismiss: 3,
       }));
+      console.log(data)
       return data;
     })
     .catch(handleError(dispatch));
