@@ -53,3 +53,9 @@ export const postCheckUsername = username =>
     .send({ username })
     .then(handleSuccess)
     .catch(handleError);
+
+// Article Endpoints
+export const getArticleByCategory = category => 
+  request.get('/api/articles/by-category/' + category)
+    .then(handleSuccess)
+    .catch(handleError);

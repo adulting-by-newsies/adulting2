@@ -42,20 +42,6 @@ export default function Navigation(props) {
               Adulting
             </h3>
           </Link>
-          {auth && (
-            <Link to="/home" className={homeItemClasses}>
-              <h6 className="title is-6">
-                Home
-              </h6>
-            </Link>
-          )}
-          {auth && (
-            <Link to="/settings" className={settingsItemClasses}>
-              <h6 className="title is-6">
-                Settings
-              </h6>
-            </Link>
-          )}
         </div>
 
         {auth ? (
