@@ -59,3 +59,8 @@ export const getArticleByCategory = category =>
   request.get('/api/articles/by-category/' + category)
     .then(handleSuccess)
     .catch(handleError);
+
+export const getAllArticlesByCategory = category => 
+  request.get('/api/articles/all-by-category/' + category)
+    .then(handleSuccess)
+    .catch(handleError);
