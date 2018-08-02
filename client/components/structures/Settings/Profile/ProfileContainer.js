@@ -27,6 +27,7 @@ export default class ProfileContainer extends Component {
     bio: this.props.user.bio || '',
     profilePic: this.props.user.profilePic || '',
     preferences: this.props.user.preferences || [],
+    totalPref: this.props.user.preferences.length,
     firstNameEdited: false,
     lastNameEdited: false,
     bioEdited: false,
@@ -40,6 +41,7 @@ export default class ProfileContainer extends Component {
     bio: this.props.user.bio || '',
     profilePic: this.props.user.profilePic || '',
     preferences: this.props.user.preferences || [],
+    totalPref: this.props.user.preferences.length || 0,
     firstNameEdited: false,
     lastNameEdited: false,
     bioEdited: false,
@@ -64,7 +66,6 @@ export default class ProfileContainer extends Component {
   updateProfilePic = e => this.setState({ profilePic: e.target.value, profilePicEdited: true })
 
   updatePreferences = e => {
-    console.log('event just happened')
     let arr = this.state.preferences
     const index = arr.indexOf(e.target.value)
     
@@ -74,7 +75,10 @@ export default class ProfileContainer extends Component {
       arr.splice(index,1)
     }
     
-    this.setState({ preferences: arr, preferencesEdited: true})
+    let newLength = arr.length
+
+    this.setState({ preferences: arr, preferencesEdited: true, totalPref: newLength})
+    console.log(this.state)
   }
 
   refresh = () => {
@@ -115,6 +119,7 @@ export default class ProfileContainer extends Component {
       <Checkbox
         label = {label}
         key = {label}
+        totalPref = {this.state.totalPref}
         updatePreferences = {this.updatePreferences}
         startChecked = {this.startChecked(label, this.state.preferences)}
       />
@@ -132,7 +137,6 @@ export default class ProfileContainer extends Component {
     } = this.state;
 
     const edited = firstNameEdited || lastNameEdited || bioEdited || profilePicEdited || preferencesEdited;
-
     return (
       <Profile
         edited={edited}
