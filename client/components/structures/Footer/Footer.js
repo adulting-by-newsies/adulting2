@@ -4,7 +4,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="footer">
+    <footer className="footer" style={{background: '#B0C4DE'}}>
       <div className="container">
         <div className="content has-text-centered">
           <p>
