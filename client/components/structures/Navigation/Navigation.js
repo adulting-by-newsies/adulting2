@@ -42,6 +42,11 @@ export default function Navigation(props) {
               Adulting
             </h3>
           </Link>
+          <Link to={auth ? '/saved' : '/'} className="nav-item">
+            <h6 className="title is-6">
+              Saved Articles
+            </h6>
+          </Link>
         </div>
 
         {auth ? (

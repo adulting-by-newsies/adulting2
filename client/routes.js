@@ -8,6 +8,7 @@ import HomePage from '_pages/HomePage';
 import LoginPage from '_pages/LoginPage';
 import RegisterPage from '_pages/RegisterPage';
 import SettingsPage from '_pages/SettingsPage';
+import SavedPage from '_pages/SavedPage';
 import SettingsProfile from '_structures/Settings/Profile';
 import SettingsAccount from '_structures/Settings/Account';
 import LostPage from '_pages/LostPage';
@@ -24,6 +25,7 @@ export default (
     <Route path="home" component={HomePage} onEnter={requireAuth} />
     <Route path="login" component={LoginPage} onEnter={requireUnauth} />
     <Route path="register" component={RegisterPage} onEnter={requireUnauth} />
+    <Route path="saved" component={SavedPage} onEnter={requireAuth} />
     <Route path="settings" component={SettingsPage} onEnter={requireAuth}>
       <IndexRoute component={SettingsProfile} />
       <Route path="profile" component={SettingsProfile} />
