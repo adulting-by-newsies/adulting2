@@ -19,4 +19,8 @@ router
   .route("/by-category/:category")
   .get(articleController.findByCategory);
 
+router
+  .route("/all-by-category/:category")
+  .get(articleController.findAllByCategory);
+
 module.exports = router;

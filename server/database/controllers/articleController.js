@@ -29,6 +29,21 @@ module.exports = {
         }))
       .catch(err => res.status(422).json(err));
   },
+  findAllByCategory: function(req, res) {
+    var allByCategory = {};
+    database.Article
+      .find({category : req.params.category})
+      .then(dbModel =>
+        
+        // dbModel.forEach(article => {
+        //   if (article.category === req.params.category) {
+        //     allByCategory.push(article);
+        //   }
+        // })
+        res.json(dbModel)
+      )
+      .catch(err => res.status(422).json(err));
+  },
   create: function(req, res) {
     database.Article
       .create(req.body)
