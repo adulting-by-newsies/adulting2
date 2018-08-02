@@ -16,6 +16,7 @@ import red from '@material-ui/core/colors/red';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import Comment from '@material-ui/icons/Comment';
+import Refresh from '@material-ui/icons/Refresh';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
@@ -88,6 +89,9 @@ class CardTwo extends React.Component {
               </IconButton>
               <IconButton aria-label="comment">
                 <Comment />
+              </IconButton>
+              <IconButton aria-label="refresh">
+                <Refresh />
               </IconButton>
               <IconButton
                 className={classnames(classes.expand, {
