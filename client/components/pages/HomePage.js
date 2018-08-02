@@ -6,7 +6,7 @@ import CardFour from '../Homepage/CardFour.js';
 import CardFive from '../Homepage/CardFive.js';
 
 import {
-  postRegister, postLogin, postLogout, getUser, putUser, putUserPassword,
+  postRegister, postLogin, postLogout, getUser, putUser, putUserPassword, getArticleByCategory
 } from '../../utils/api';
 
 export default class HomePage extends Component {
@@ -25,6 +25,9 @@ export default class HomePage extends Component {
       if (data.user.preferences.length === 0){
         console.log("User has no preferences!")
         //TODO: Write some code to build out a default homepage
+        getArticleByCategory("sports").then(article => {
+          console.log(article);
+        })
       } else {
         //TODO: Handle all the cases to build out the article list
         // with the preferences given here

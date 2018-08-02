@@ -15,4 +15,8 @@ router
   .get(articleController.findById)
   .delete(articleController.remove);
 
+router
+  .route("/by-category/:category")
+  .get(articleController.findByCategory);
+
 module.exports = router;
