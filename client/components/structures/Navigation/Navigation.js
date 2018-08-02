@@ -33,7 +33,7 @@ export default function Navigation(props) {
   });
 
   return (
-    <nav className="nav has-shadow is-fixed">
+    <nav className="nav has-shadow is-fixed" style={{background: '#6495ED'}}>
       <div className="container">
 
         <div className="nav-left">
