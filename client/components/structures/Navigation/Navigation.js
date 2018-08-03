@@ -33,24 +33,24 @@ export default function Navigation(props) {
   });
 
   return (
-    <nav className="nav has-shadow is-fixed" style={{background: '#6495ED'}}>
+    <nav className="nav has-shadow is-fixed" style={{background: '#ff6666', height: 60}}>
       <div className="container">
 
         <div className="nav-left">
           <Link to={auth ? '/home' : '/'} className="nav-item">
-            <h3 className="title is-3 logo">
+            <h3 className="title is-3">
               Adulting
             </h3>
-          </Link>
-          <Link to={auth ? '/saved' : '/'} className="nav-item">
-            <h6 className="title is-6">
-              Saved Articles
-            </h6>
           </Link>
         </div>
 
         {auth ? (
           <div className="nav-right">
+            <Link to={auth ? '/saved' : '/'} className="nav-item">
+              <h6 className="title is-6">
+                Saved Articles
+              </h6>
+            </Link>
             <a className="nav-item is-hoverable" onClick={toggleUserDropdown} onKeyPress={toggleUserDropdown}>
               <figure className="image nav-image is-32x32">
                 <img className="profile-img" src={user.profilePic || '/default-profile.png'} alt="" />

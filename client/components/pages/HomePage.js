@@ -40,9 +40,9 @@ export default class HomePage extends Component {
       <div className="home-page">
         <div className="section">
           <div className="container">
-            <h1 className="title is-1">
+            <h2 className="title is-2">
               Welcome to your personalized article feed, {this.state.username}!
-            </h1>
+            </h2>
             <CardOne />
             <CardTwo />
             <CardThree />
