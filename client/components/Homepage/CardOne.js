@@ -19,10 +19,11 @@ import Comment from '@material-ui/icons/Comment';
 import Refresh from '@material-ui/icons/Refresh';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import missing from '../pages/icon-missing-image.png';
 
 const styles = theme => ({
   card: {
-    maxWidth: 800,
+    width: 700,
   },
   media: {
     height: 0,
@@ -55,8 +56,6 @@ class CardOne extends React.Component {
   };
 
   componentWillReceiveProps(nextProps){
-    console.log('receiving props: ', this.props)
-    console.log('nextProps: ', nextProps)
     this.setState({ articleList: nextProps.articles })
   }
   handleExpandClick = () => {
@@ -64,8 +63,7 @@ class CardOne extends React.Component {
   };
 
   incrementCount = () => {
-    const newCount = this.state.count+1
-    console.log(newCount)
+    const newCount = this.state.count < 4 ? this.state.count+1 : 0;
     this.setState({count: newCount})
   }
 
@@ -87,7 +85,7 @@ class CardOne extends React.Component {
             />
             <CardMedia
               className={classes.media}
-              image={this.state.articleList.length > 0 ? this.state.articleList[this.state.count].urlToImage : ''}
+              image={this.state.articleList.length > 0 ? (this.state.articleList[this.state.count].urlToImage !== null ? this.state.articleList[this.state.count].urlToImage : missing)  : ''}
               title="Contemplative Reptile"
             />
             <CardContent>
