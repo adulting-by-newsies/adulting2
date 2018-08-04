@@ -86,6 +86,14 @@ export default class HomePage extends Component {
     var alreadySaved = false;
     tempUser = this.state.userLocal;
 
+    //Have to catch for not having any saved articles!
+    if (!tempUser.savedArticles){
+      tempUser.savedArticles = [];
+      tempUser.savedArticles.push(article);
+      this.setState({userLocal: tempUser}, this.updateUserToDatabase)
+      return;
+    }
+
     tempUser.savedArticles.forEach(savedArticle => {
       if(savedArticle._id === article._id){
         console.log("Already saved this article");
