@@ -4,7 +4,8 @@ import { Link } from 'react-router';
 import classNames from 'classnames';
 import * as R from 'ramda';
 import UserDropdown from './UserDropdown';
-
+import logo from '../../pages/icon-2.png';
+import missing from '../../pages/icon-missing-image.png';
 export default function Navigation(props) {
   const {
     user, auth, pathname, toggleUserDropdown, closeUserDropdown, userDropdownOpen,
@@ -32,25 +33,37 @@ export default function Navigation(props) {
     'is-active': isSettings,
   });
 
+  const styles = theme => ({
+    titleText: {
+      fontFamily: 'Permanent Marker'
+    },
+  });
+
   return (
-    <nav className="nav has-shadow is-fixed" style={{background: '#6495ED'}}>
+    <nav className="nav has-shadow is-fixed" style={{background: '#ff6666', height: 60}}>
       <div className="container">
 
+        <img src={logo}
+          style={{
+              width: 50,
+              height: 50,
+              marginTop: 5,}}
+        />
         <div className="nav-left">
           <Link to={auth ? '/home' : '/'} className="nav-item">
-            <h3 className="title is-3 logo">
+            <h3 className="title is-3 titleText" style={styles.titleText}>
               Adulting
             </h3>
-          </Link>
-          <Link to={auth ? '/saved' : '/'} className="nav-item">
-            <h6 className="title is-6">
-              Saved Articles
-            </h6>
           </Link>
         </div>
 
         {auth ? (
           <div className="nav-right">
+            <Link to={auth ? '/saved' : '/'} className="nav-item">
+              <h6 className="title is-6">
+                Saved Articles
+              </h6>
+            </Link>
             <a className="nav-item is-hoverable" onClick={toggleUserDropdown} onKeyPress={toggleUserDropdown}>
               <figure className="image nav-image is-32x32">
                 <img className="profile-img" src={user.profilePic || '/default-profile.png'} alt="" />

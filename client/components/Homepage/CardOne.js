@@ -19,10 +19,15 @@ import Comment from '@material-ui/icons/Comment';
 import Refresh from '@material-ui/icons/Refresh';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import missing from '../pages/icon-missing-image.png';
+
+import {
+  getUser, putUser, putUserPassword, getArticleByCategory, getAllArticlesByCategory
+} from '../../utils/api';
 
 const styles = theme => ({
   card: {
-    maxWidth: 800,
+    width: 700,
   },
   media: {
     height: 0,
@@ -47,13 +52,24 @@ const styles = theme => ({
 });
 
 class CardOne extends React.Component {
+  
   state = { 
     expanded: false ,
+    articleList: [],
+    count: 0
   };
 
+  componentWillReceiveProps(nextProps){
+    this.setState({ articleList: nextProps.articles })
+  }
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
   };
+
+  incrementCount = () => {
+    const newCount = this.state.count < 4 ? this.state.count+1 : 0;
+    this.setState({count: newCount})
+  }
 
   render() {
     const { classes } = this.props;
@@ -66,32 +82,30 @@ class CardOne extends React.Component {
         alignItems="center"
         justify="center"
       >
-        <div style={{ marginBottom: 20 }}>
+        <div style={{ marginBottom: 20, marginTop: 10 }}>
           <Card className={classes.card}>
             <CardHeader
-
-              title="Shrimp and Chorizo Paella"
+              title={this.state.articleList.length > 0 ? this.state.articleList[this.state.count].category.toUpperCase() : ''}
             />
             <CardMedia
               className={classes.media}
-              image="https://images.pexels.com/photos/248307/pexels-photo-248307.jpeg?auto=compress&cs=tinysrgb&h=350"
+              image={this.state.articleList.length > 0 ? (this.state.articleList[this.state.count].urlToImage !== null ? this.state.articleList[this.state.count].urlToImage : missing)  : ''}
               title="Contemplative Reptile"
             />
             <CardContent>
               <Typography component="p">
-                This impressive paella is a perfect party dish and a fun meal to cook together with
-                your guests. Add 1 cup of frozen peas along with the mussels, if you like.
+                {this.state.articleList.length > 0 ? this.state.articleList[this.state.count].description : ''}
               </Typography>
             </CardContent>
             <CardActions className={classes.actions} disableActionSpacing>
               <IconButton aria-label="Add to favorites">
-                <FavoriteIcon />
+                <FavoriteIcon onClick={() => this.props.saveArticle(this.state.articleList[this.state.count])}/>
               </IconButton>
               <IconButton aria-label="comment">
                 <Comment />
               </IconButton>
               <IconButton aria-label="refresh">
-                <Refresh />
+                <Refresh onClick={this.incrementCount}/>
               </IconButton>
             </CardActions>
             <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>

@@ -33,6 +33,7 @@ module.exports = {
     var allByCategory = {};
     database.Article
       .find({category : req.params.category})
+      .limit(5)
       .then(dbModel =>
         
         // dbModel.forEach(article => {
