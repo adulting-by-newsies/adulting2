@@ -76,7 +76,7 @@ export default class HomePage extends Component {
             <h2 className="title is-2" style={{ marginTop: 50 }}>
               Welcome to your personalized article feed, {this.state.username}!
 
-            </h1>
+            </h2>
             {this.state.userPreferences[0] ? <CardOne articles={this.state.userArticleList[0]}/> : null}
             {this.state.userPreferences[1] ? <CardOne articles={this.state.userArticleList[1]}/> : null}
             {this.state.userPreferences[2] ? <CardOne articles={this.state.userArticleList[2]}/> : null}

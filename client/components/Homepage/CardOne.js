@@ -83,7 +83,6 @@ class CardOne extends React.Component {
         <div style={{ marginBottom: 20, marginTop: 10 }}>
           <Card className={classes.card}>
             <CardHeader
-
               title={this.state.articleList.length > 0 ? this.state.articleList[this.state.count].category.toUpperCase() : ''}
             />
             <CardMedia
