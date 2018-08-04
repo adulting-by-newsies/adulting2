@@ -80,7 +80,7 @@ class CardOne extends React.Component {
         alignItems="center"
         justify="center"
       >
-        <div style={{ marginBottom: 20 }}>
+        <div style={{ marginBottom: 20, marginTop: 10 }}>
           <Card className={classes.card}>
             <CardHeader
 

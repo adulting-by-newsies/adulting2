@@ -4,6 +4,7 @@ import CardTwo from '../Homepage/CardTwo.js';
 import CardThree from '../Homepage/CardThree.js';
 import CardFour from '../Homepage/CardFour.js';
 import CardFive from '../Homepage/CardFive.js';
+import ProgressBar from '../Homepage/ProgressBar.js';
 
 import {
   postRegister, postLogin, postLogout, getUser, putUser, putUserPassword, getArticleByCategory, getAllArticlesByCategory
@@ -66,14 +67,22 @@ export default class HomePage extends Component {
       <div className="home-page">
         <div className="section">
           <div className="container">
-            <h1 className="title is-1">
+            <div className="container" style={{ position: 'absolute', top: 10, right: -10, width: 120 }}>
+              <h6 className="title is-6">
+                Daily Progress
+              </h6>
+              <ProgressBar />
+            </div>
+            <h2 className="title is-2" style={{ marginTop: 50 }}>
               Welcome to your personalized article feed, {this.state.username}!
+
             </h1>
             {this.state.userPreferences[0] ? <CardOne articles={this.state.userArticleList[0]}/> : null}
             {this.state.userPreferences[1] ? <CardOne articles={this.state.userArticleList[1]}/> : null}
             {this.state.userPreferences[2] ? <CardOne articles={this.state.userArticleList[2]}/> : null}
             {this.state.userPreferences[3] ? <CardOne articles={this.state.userArticleList[3]}/> : null}
             {this.state.userPreferences[4] ? <CardOne articles={this.state.userArticleList[4]}/> : null}
+
           </div>
         </div>
       </div>
