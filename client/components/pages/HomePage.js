@@ -7,7 +7,7 @@ import CardFive from '../Homepage/CardFive.js';
 import ProgressBar from '../Homepage/ProgressBar.js';
 
 import {
-  postRegister, postLogin, postLogout, getUser, putUser, putUserPassword, getArticleByCategory
+  postRegister, postLogin, postLogout, getUser, putUser, putUserPassword, getArticleByCategory, getAllArticlesByCategory
 } from '../../utils/api';
 
 export default class HomePage extends Component {
@@ -20,23 +20,49 @@ export default class HomePage extends Component {
 
   componentDidMount() {
     getUser().then(data => {
-      console.log(data.user);
-      this.setState({username: data.user.username});
-      console.log(data.user.preferences.length)
+      var arr = data.user.preferences.map(x => x.toLowerCase())
+
+      this.setState({username: data.user.username, userPreferences: arr});
       if (data.user.preferences.length === 0){
-        console.log("User has no preferences!")
         //TODO: Write some code to build out a default homepage
-        getArticleByCategory("sports").then(article => {
+        getAllArticlesByCategory("sports").then(article => {
           console.log(article);
         })
       } else {
         //TODO: Handle all the cases to build out the article list
         // with the preferences given here
+        let promises = this.state.userPreferences.map(element => {
+          let promise = element ? (
+            new Promise(function(resolve, reject){
+              getAllArticlesByCategory(element).then(article => {
+                resolve(article);
+              })
+            })
+          ) : null;
+
+          return promise
+        })
+
+        Promise.all(promises).then(results => {
+            console.log("This is the state ===>", this.state)
+            this.setState({userArticleList: results}, this.displayState)
+          }
+        )
+        
       }
     })
   }
 
+
+  returnArticles(num){
+    return this.state.userArticleList[num]
+  }
+
+  displayState(){
+    console.log('displaying state: ', this.state.userArticleList[0])
+  }
   render() {
+    console.log('RENDERING--------------------------------')
     return (
       <div className="home-page">
         <div className="section">
@@ -49,15 +75,23 @@ export default class HomePage extends Component {
             </div>
             <h2 className="title is-2" style={{ marginTop: 50 }}>
               Welcome to your personalized article feed, {this.state.username}!
-            </h2>
-            <CardOne />
-            <CardTwo />
-            <CardThree />
-            <CardFour />
-            <CardFive />
+
+            </h1>
+            {this.state.userPreferences[0] ? <CardOne articles={this.state.userArticleList[0]}/> : null}
+            {this.state.userPreferences[1] ? <CardOne articles={this.state.userArticleList[1]}/> : null}
+            {this.state.userPreferences[2] ? <CardOne articles={this.state.userArticleList[2]}/> : null}
+            {this.state.userPreferences[3] ? <CardOne articles={this.state.userArticleList[3]}/> : null}
+            {this.state.userPreferences[4] ? <CardOne articles={this.state.userArticleList[4]}/> : null}
+
           </div>
         </div>
       </div>
     );
   }
+  /*
+            <CardTwo />
+            <CardThree />
+            <CardFour />
+            <CardFive />
+  */
 }

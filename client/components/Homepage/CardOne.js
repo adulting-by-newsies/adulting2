@@ -47,13 +47,27 @@ const styles = theme => ({
 });
 
 class CardOne extends React.Component {
+  
   state = { 
     expanded: false ,
+    articleList: [],
+    count: 0
   };
 
+  componentWillReceiveProps(nextProps){
+    console.log('receiving props: ', this.props)
+    console.log('nextProps: ', nextProps)
+    this.setState({ articleList: nextProps.articles })
+  }
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
   };
+
+  incrementCount = () => {
+    const newCount = this.state.count+1
+    console.log(newCount)
+    this.setState({count: newCount})
+  }
 
   render() {
     const { classes } = this.props;
@@ -70,17 +84,16 @@ class CardOne extends React.Component {
           <Card className={classes.card}>
             <CardHeader
 
-              title="Shrimp and Chorizo Paella"
+              title={this.state.articleList.length > 0 ? this.state.articleList[this.state.count].category.toUpperCase() : ''}
             />
             <CardMedia
               className={classes.media}
-              image="https://images.pexels.com/photos/248307/pexels-photo-248307.jpeg?auto=compress&cs=tinysrgb&h=350"
+              image={this.state.articleList.length > 0 ? this.state.articleList[this.state.count].urlToImage : ''}
               title="Contemplative Reptile"
             />
             <CardContent>
               <Typography component="p">
-                This impressive paella is a perfect party dish and a fun meal to cook together with
-                your guests. Add 1 cup of frozen peas along with the mussels, if you like.
+                {this.state.articleList.length > 0 ? this.state.articleList[this.state.count].description : ''}
               </Typography>
             </CardContent>
             <CardActions className={classes.actions} disableActionSpacing>
@@ -91,7 +104,7 @@ class CardOne extends React.Component {
                 <Comment />
               </IconButton>
               <IconButton aria-label="refresh">
-                <Refresh />
+                <Refresh onClick={this.incrementCount}/>
               </IconButton>
             </CardActions>
             <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
