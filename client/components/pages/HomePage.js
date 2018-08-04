@@ -100,6 +100,7 @@ export default class HomePage extends Component {
 
   render() {
     console.log('RENDERING--------------------------------')
+    console.log(this.state.userArticleList)
     return (
       <div className="home-page">
         <div className="section">

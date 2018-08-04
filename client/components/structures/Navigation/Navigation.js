@@ -4,7 +4,8 @@ import { Link } from 'react-router';
 import classNames from 'classnames';
 import * as R from 'ramda';
 import UserDropdown from './UserDropdown';
-
+import logo from '../../pages/icon-2.png';
+import missing from '../../pages/icon-missing-image.png';
 export default function Navigation(props) {
   const {
     user, auth, pathname, toggleUserDropdown, closeUserDropdown, userDropdownOpen,
@@ -32,13 +33,25 @@ export default function Navigation(props) {
     'is-active': isSettings,
   });
 
+  const styles = theme => ({
+    titleText: {
+      fontFamily: 'Permanent Marker'
+    },
+  });
+
   return (
     <nav className="nav has-shadow is-fixed" style={{background: '#ff6666', height: 60}}>
       <div className="container">
 
+        <img src={logo}
+          style={{
+              width: 50,
+              height: 50,
+              marginTop: 5,}}
+        />
         <div className="nav-left">
           <Link to={auth ? '/home' : '/'} className="nav-item">
-            <h3 className="title is-3">
+            <h3 className="title is-3 titleText" style={styles.titleText}>
               Adulting
             </h3>
           </Link>
