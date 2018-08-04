@@ -49,6 +49,9 @@ const styles = theme => ({
   avatar: {
     backgroundColor: red[500],
   },
+  CardHeader: {
+    fontFamily: 'Permanent Marker',
+  }
 });
 
 class CardOne extends React.Component {
@@ -83,7 +86,7 @@ class CardOne extends React.Component {
         justify="center"
       >
         <div style={{ marginBottom: 20, marginTop: 10 }}>
-          <Card className={classes.card}>
+          <Card className={classes.card} style={{fontFamily: 'Permanent Marker'}}>
             <CardHeader
               title={this.state.articleList.length > 0 ? this.state.articleList[this.state.count].category.toUpperCase() : ''}
             />

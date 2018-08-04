@@ -5,7 +5,8 @@ import classNames from 'classnames';
 import * as R from 'ramda';
 import UserDropdown from './UserDropdown';
 import logo from '../../pages/icon-2.png';
-import missing from '../../pages/icon-missing-image.png';
+// import './Nav.css';
+
 export default function Navigation(props) {
   const {
     user, auth, pathname, toggleUserDropdown, closeUserDropdown, userDropdownOpen,
@@ -51,7 +52,9 @@ export default function Navigation(props) {
         />
         <div className="nav-left">
           <Link to={auth ? '/home' : '/'} className="nav-item">
-            <h3 className="title is-3 titleText" style={styles.titleText}>
+            <h3 className="title is-3 titleText" style={{
+              fontFamily: 'Permanent Marker',
+            }}>
               Adulting
             </h3>
           </Link>
