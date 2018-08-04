@@ -15,11 +15,19 @@ export default class HomePage extends Component {
   state = {
     userArticleList: [],
     userPreferences: [],
-    username: ""
+    username: "",
+    userLocal: 'false'
   }
 
   componentDidMount() {
     getUser().then(data => {
+      // console.log("User is ");
+      // console.log(data.user);
+
+      //TODO: Can we just get away with a local copy of the user?
+      console.log("Show local user")
+      this.setState({userLocal: data.user}, console.log(this.state.userLocal));
+
       var arr = data.user.preferences.map(x => x.toLowerCase())
 
       this.setState({username: data.user.username, userPreferences: arr});
@@ -61,6 +69,35 @@ export default class HomePage extends Component {
   displayState(){
     console.log('displaying state: ', this.state.userArticleList[0])
   }
+
+  //This function will push userLocal back to the user Database
+  updateUserToDatabase() {
+    putUser(this.state.userLocal);
+  }
+
+  saveArticle(article){
+    console.log("trying to save article")
+    console.log(article);
+    console.log(this.state.userLocal)
+    // this.setState({userLocal.savedArticles})
+    //This is a waste of memory, there must be a better way...
+    // this.displayState();
+    var tempUser = {}
+    var alreadySaved = false;
+    tempUser = this.state.userLocal;
+
+    tempUser.savedArticles.forEach(savedArticle => {
+      if(savedArticle._id === article._id){
+        console.log("Already saved this article");
+        alreadySaved = true;
+      }
+    })
+    if (!alreadySaved){    
+      tempUser.savedArticles.push(article);
+      this.setState({userLocal: tempUser}, this.updateUserToDatabase)
+    }
+  }
+
   render() {
     console.log('RENDERING--------------------------------')
     console.log(this.state.userArticleList)
@@ -78,11 +115,11 @@ export default class HomePage extends Component {
               Welcome to your personalized article feed, {this.state.username}!
 
             </h2>
-            {this.state.userPreferences[0] ? <CardOne articles={this.state.userArticleList[0]}/> : null}
-            {this.state.userPreferences[1] ? <CardOne articles={this.state.userArticleList[1]}/> : null}
-            {this.state.userPreferences[2] ? <CardOne articles={this.state.userArticleList[2]}/> : null}
-            {this.state.userPreferences[3] ? <CardOne articles={this.state.userArticleList[3]}/> : null}
-            {this.state.userPreferences[4] ? <CardOne articles={this.state.userArticleList[4]}/> : null}
+            {this.state.userPreferences[0] ? <CardOne articles={this.state.userArticleList[0]} saveArticle={this.saveArticle.bind(this)}/> : null}
+            {this.state.userPreferences[1] ? <CardOne articles={this.state.userArticleList[1]} saveArticle={this.saveArticle.bind(this)}/> : null}
+            {this.state.userPreferences[2] ? <CardOne articles={this.state.userArticleList[2]} saveArticle={this.saveArticle.bind(this)}/> : null}
+            {this.state.userPreferences[3] ? <CardOne articles={this.state.userArticleList[3]} saveArticle={this.saveArticle.bind(this)}/> : null}
+            {this.state.userPreferences[4] ? <CardOne articles={this.state.userArticleList[4]} saveArticle={this.saveArticle.bind(this)}/> : null}
 
           </div>
         </div>

@@ -21,6 +21,10 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import missing from '../pages/icon-missing-image.png';
 
+import {
+  getUser, putUser, putUserPassword, getArticleByCategory, getAllArticlesByCategory
+} from '../../utils/api';
+
 const styles = theme => ({
   card: {
     width: 700,
@@ -95,7 +99,7 @@ class CardOne extends React.Component {
             </CardContent>
             <CardActions className={classes.actions} disableActionSpacing>
               <IconButton aria-label="Add to favorites">
-                <FavoriteIcon />
+                <FavoriteIcon onClick={() => this.props.saveArticle(this.state.articleList[this.state.count])}/>
               </IconButton>
               <IconButton aria-label="comment">
                 <Comment />
