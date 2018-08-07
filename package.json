@@ -9,7 +9,7 @@
     "lint": "./scripts/lint",
     "lint:fix": "./scripts/lint-fix",
     "prod": "npm run build && npm run start",
-    "start": "npm run prod",
+    "start": "nodemon server/index.js",
     "test": "./scripts/test",
     "test:verbose": "./scripts/test-verbose"
   },
