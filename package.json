@@ -13,7 +13,7 @@
     "start": "npm run start:basic",
     "test": "./scripts/test",
     "test:verbose": "./scripts/test-verbose",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run dev"
   },
   "repository": {
     "type": "git",
