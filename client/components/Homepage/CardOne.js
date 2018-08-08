@@ -59,7 +59,8 @@ class CardOne extends React.Component {
   state = { 
     expanded: false ,
     articleList: [],
-    count: 0
+    count: 0,
+    window: window,
   };
 
   componentWillReceiveProps(nextProps){
@@ -72,6 +73,11 @@ class CardOne extends React.Component {
   incrementCount = () => {
     const newCount = this.state.count < 4 ? this.state.count+1 : 0;
     this.setState({count: newCount})
+  }
+
+  openInNewTab = () => {
+    var url = this.state.articleList[this.state.count].url
+    window.open(url, '_blank');
   }
 
   render() {
@@ -94,6 +100,7 @@ class CardOne extends React.Component {
               className={classes.media}
               image={this.state.articleList.length > 0 ? (this.state.articleList[this.state.count].urlToImage !== null ? this.state.articleList[this.state.count].urlToImage : missing)  : ''}
               title="Contemplative Reptile"
+              onClick={this.openInNewTab}
             />
             <CardContent>
               <Typography component="p">
