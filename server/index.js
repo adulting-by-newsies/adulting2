@@ -22,6 +22,9 @@ authConfig(app, express);
 
 app.use('/', routes);
 
+console.log("__dirname")
+console.log(__dirname)
+
 // News API Call here
 var results = [];
 
