@@ -1,7 +1,7 @@
 {
-  "name": "boilerplate-mern",
-  "version": "0.0.1",
-  "description": "A full MERN stack boilerplate",
+  "name": "adulting",
+  "version": "0.9",
+  "description": "Adulting by Newsies",
   "main": "server/index.js",
   "scripts": {
     "build": "webpack -p --config webpack.prod.config.js",
@@ -17,16 +17,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/djizco/boilerplate-mern.git"
+    "url": "git+https://github.com/adulting-by-newsies/adulting2.git"
   },
   "author": {
-    "name": "Rico Rojas",
-    "email": "djizco@yahoo.com",
-    "url": "https://github.com/djizco"
+    "name": "Scott Bouchey",
+    "email": "scott.bouchey@gmail.com",
+    "url": "https://github.com/kilcannon"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/djizco/boilerplate-mern/issues"
+    "url": "https://github.com/adulting-by-newsies/adulting2/issues"
   },
   "keywords": [
     "react",
@@ -43,7 +43,7 @@
     "lab",
     "enzyme"
   ],
-  "homepage": "https://github.com/djizco/boilerplate-mern#readme",
+  "homepage": "https://github.com/adulting-by-newsies/adulting2#readme",
   "engines": {
     "node": ">=8.11.0"
   },
