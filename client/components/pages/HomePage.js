@@ -59,7 +59,6 @@ export default class HomePage extends Component {
                 article.isFavorited = false;
                 data.user.savedArticles.forEach(savedArticle => {
                   if (savedArticle._id === article._id){
-                    console.log("User favorited this article");
                     console.log(article);
                     article.isFavorited = true;
                   }
@@ -86,6 +85,17 @@ export default class HomePage extends Component {
   //This function will push userLocal back to the user Database
   updateUserToDatabase() {
     putUser(this.state.userLocal);
+    //Have to manually update the local copy of the userArticleList
+    this.state.userArticleList.forEach(articleArray => {
+      articleArray.forEach(article => {
+        this.state.userLocal.savedArticles.forEach(savedArticle => {
+          article.isFavorited = false;
+          if (savedArticle._id === article._id){
+            article.isFavorited = true;
+          }
+        })
+      })
+    })
   }
 
   saveArticle(article){
@@ -114,7 +124,6 @@ export default class HomePage extends Component {
   }
 
   render() {
-    console.log('RENDERING--------------------------------')
     return (
       <div className="home-page">
         <div className="section">
