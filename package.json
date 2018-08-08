@@ -10,9 +10,10 @@
     "lint:fix": "./scripts/lint-fix",
     "prod": "npm run build && npm run start:basic",
     "start:basic": "node server/index.js",
-    "start": "npm run start:basic && npm run dev",
+    "start": "npm run start:basic",
     "test": "./scripts/test",
-    "test:verbose": "./scripts/test-verbose"
+    "test:verbose": "./scripts/test-verbose",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
