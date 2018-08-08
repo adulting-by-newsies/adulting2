@@ -53,6 +53,19 @@ export default class HomePage extends Component {
 
         Promise.all(promises).then(results => {
             console.log("This is the state ===>", this.state)
+            console.log("This is results ===>", results)
+            results.forEach(articleArray => {
+              articleArray.forEach(article => {
+                article.isFavorited = false;
+                data.user.savedArticles.forEach(savedArticle => {
+                  if (savedArticle._id === article._id){
+                    console.log("User favorited this article");
+                    console.log(article);
+                    article.isFavorited = true;
+                  }
+                })
+              })
+            })
             this.setState({userArticleList: results}, this.displayState)
           }
         )
@@ -76,12 +89,7 @@ export default class HomePage extends Component {
   }
 
   saveArticle(article){
-    console.log("trying to save article")
-    console.log(article);
-    console.log(this.state.userLocal)
-    // this.setState({userLocal.savedArticles})
-    //This is a waste of memory, there must be a better way...
-    // this.displayState();
+
     var tempUser = {}
     var alreadySaved = false;
     tempUser = this.state.userLocal;
@@ -96,7 +104,6 @@ export default class HomePage extends Component {
 
     tempUser.savedArticles.forEach(savedArticle => {
       if(savedArticle._id === article._id){
-        console.log("Already saved this article");
         alreadySaved = true;
       }
     })
@@ -108,7 +115,6 @@ export default class HomePage extends Component {
 
   render() {
     console.log('RENDERING--------------------------------')
-    console.log(this.state.userArticleList)
     return (
       <div className="home-page">
         <div className="section">
@@ -123,11 +129,11 @@ export default class HomePage extends Component {
               Welcome to your personalized article feed, {this.state.username}!
 
             </h2>
-            {this.state.userPreferences[0] ? <CardOne articles={this.state.userArticleList[0]} saveArticle={this.saveArticle.bind(this)}/> : null}
-            {this.state.userPreferences[1] ? <CardOne articles={this.state.userArticleList[1]} saveArticle={this.saveArticle.bind(this)}/> : null}
-            {this.state.userPreferences[2] ? <CardOne articles={this.state.userArticleList[2]} saveArticle={this.saveArticle.bind(this)}/> : null}
-            {this.state.userPreferences[3] ? <CardOne articles={this.state.userArticleList[3]} saveArticle={this.saveArticle.bind(this)}/> : null}
-            {this.state.userPreferences[4] ? <CardOne articles={this.state.userArticleList[4]} saveArticle={this.saveArticle.bind(this)}/> : null}
+            {this.state.userPreferences[0] ? <CardOne articles={this.state.userArticleList[0]} saveArticle={this.saveArticle.bind(this)} usersSavedArticles={this.state.userLocal.savedArticles}/> : null}
+            {this.state.userPreferences[1] ? <CardOne articles={this.state.userArticleList[1]} saveArticle={this.saveArticle.bind(this)} usersSavedArticles={this.state.userLocal.savedArticles}/> : null}
+            {this.state.userPreferences[2] ? <CardOne articles={this.state.userArticleList[2]} saveArticle={this.saveArticle.bind(this)} usersSavedArticles={this.state.userLocal.savedArticles}/> : null}
+            {this.state.userPreferences[3] ? <CardOne articles={this.state.userArticleList[3]} saveArticle={this.saveArticle.bind(this)} usersSavedArticles={this.state.userLocal.savedArticles}/> : null}
+            {this.state.userPreferences[4] ? <CardOne articles={this.state.userArticleList[4]} saveArticle={this.saveArticle.bind(this)} usersSavedArticles={this.state.userLocal.savedArticles}/> : null}
 
           </div>
         </div>

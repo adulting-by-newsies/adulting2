@@ -20,6 +20,7 @@ import Refresh from '@material-ui/icons/Refresh';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import missing from '../pages/icon-missing-image.png';
+import ReactDOM from 'react-dom'
 
 import {
   getUser, putUser, putUserPassword, getArticleByCategory, getAllArticlesByCategory
@@ -51,6 +52,12 @@ const styles = theme => ({
   },
   CardHeader: {
     fontFamily: 'Permanent Marker',
+  },
+  FavoriteIcon: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
+  },
+  FavoriteIconActive: {
+    background: 'linear-gradient(45deg, #2196f3 30%, #21cbf3 90%)'
   }
 });
 
@@ -59,12 +66,64 @@ class CardOne extends React.Component {
   state = { 
     expanded: false ,
     articleList: [],
+    userFavorites: [],
     count: 0
   };
 
-  componentWillReceiveProps(nextProps){
-    this.setState({ articleList: nextProps.articles })
+  //Runs through the users saved articles and attaches a isFavorited value of true if it
+  //has already been favorited
+  tellIfFavorited(article){
+    if (this.state.userFavorites === [])
+      return false;
+
+    this.state.userFavorites.forEach(savedArticle => {
+      console.log("Comparing ")
+      console.log(savedArticle._id)
+      console.log(article._id)
+      if (savedArticle._id == article._id){
+        console.log("It's a match")
+
+        return true;
+      }
+    })
+    return false;
   }
+
+  addFavoriteField(){
+    console.log("Testing if no articleList")
+    if (this.state.articleList.length === 0){
+      console.log("Shouldn't go any further")
+      return
+    } else{
+      console.log(this.state.articleList)
+    }
+
+    var temp = this.state.articleList;
+    if(this.tellIfFavorited(this.state.articleList[this.state.count])){
+      temp[this.state.count].isFavorited = true;
+
+    } else {
+      temp[this.state.count].isFavorited = false;
+
+    }
+    this.setState({articleList: temp})
+  }
+
+  componentDidMount(){
+    console.log("Mounted")
+    // this.addFavoriteField();
+  }
+
+  componentWillReceiveProps(nextProps){
+    console.log("Got props")
+    this.setState({ articleList: nextProps.articles, userFavorites: nextProps.usersSavedArticles })
+  }
+
+  componentDidUpdate(){
+    console.log("Updated")
+
+  }
+
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
   };
@@ -73,6 +132,8 @@ class CardOne extends React.Component {
     const newCount = this.state.count < 4 ? this.state.count+1 : 0;
     this.setState({count: newCount})
   }
+
+
 
   render() {
     const { classes } = this.props;
@@ -102,7 +163,11 @@ class CardOne extends React.Component {
             </CardContent>
             <CardActions className={classes.actions} disableActionSpacing>
               <IconButton aria-label="Add to favorites">
-                <FavoriteIcon onClick={() => this.props.saveArticle(this.state.articleList[this.state.count])}/>
+                <FavoriteIcon 
+                  style={this.state.articleList.length > 0 ? (this.state.articleList[this.state.count].isFavorited ? {color: red[500]} : {}): {color: red[100]}}
+
+                  onClick={() => this.props.saveArticle(this.state.articleList[this.state.count])}
+                ></FavoriteIcon>
               </IconButton>
               <IconButton aria-label="comment">
                 <Comment />
