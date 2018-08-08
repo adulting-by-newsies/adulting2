@@ -66,9 +66,13 @@ class CardOne extends React.Component {
   state = { 
     expanded: false ,
     articleList: [],
+<<<<<<< HEAD
     userFavorites: [],
+    count: 0
+=======
     count: 0,
     window: window,
+>>>>>>> 8cecf2660e562165a214ae519a7d3dd18e7b325f
   };
 
   //Runs through the users saved articles and attaches a isFavorited value of true if it
@@ -110,13 +114,6 @@ class CardOne extends React.Component {
     this.setState({articleList: temp})
   }
 
-  displaySaved() {
-    console.log("Displaying User Saved Articles")
-    this.state.userFavorites.forEach(article => {
-      console.log(article._id);
-    })
-  }
-
   componentDidMount(){
     console.log("Mounted")
     // this.addFavoriteField();
@@ -124,10 +121,11 @@ class CardOne extends React.Component {
 
   componentWillReceiveProps(nextProps){
     console.log("Got props")
-    this.setState({ articleList: nextProps.articles, userFavorites: nextProps.usersSavedArticles }, this.displaySaved)
+    this.setState({ articleList: nextProps.articles, userFavorites: nextProps.usersSavedArticles })
   }
 
   componentDidUpdate(){
+    console.log("Updated")
 
   }
 
@@ -140,14 +138,18 @@ class CardOne extends React.Component {
     this.setState({count: newCount})
   }
 
+<<<<<<< HEAD
+
+=======
   openInNewTab = () => {
     var url = this.state.articleList[this.state.count].url
     window.open(url, '_blank');
   }
+>>>>>>> 8cecf2660e562165a214ae519a7d3dd18e7b325f
 
   render() {
     const { classes } = this.props;
-    console.log("Rendering CardOne")
+
     return (
       <Grid
         container
@@ -175,9 +177,9 @@ class CardOne extends React.Component {
             <CardActions className={classes.actions} disableActionSpacing>
               <IconButton aria-label="Add to favorites">
                 <FavoriteIcon 
-                  style={this.state.articleList.length > 0 ? (this.state.articleList[this.state.count].isFavorited ? {color: red[500]} : {}): {}}
+                  style={this.state.articleList.length > 0 ? (this.state.articleList[this.state.count].isFavorited ? {color: red[500]} : {}): {color: red[100]}}
 
-                  onClick={() => {this.state.articleList[this.state.count].isFavorited = true; this.props.saveArticle(this.state.articleList[this.state.count]); }}
+                  onClick={() => this.props.saveArticle(this.state.articleList[this.state.count])}
                 ></FavoriteIcon>
               </IconButton>
               <IconButton aria-label="comment">
