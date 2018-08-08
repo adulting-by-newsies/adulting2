@@ -8,8 +8,9 @@
     "dev": "webpack --config webpack.dev.config.js --watch",
     "lint": "./scripts/lint",
     "lint:fix": "./scripts/lint-fix",
-    "prod": "npm run build && npm run start",
-    "start": "nodemon server/index.js",
+    "prod": "npm run build && npm run start:basic",
+    "start:basic": "node server/index.js",
+    "start": "npm run start:basic && npm run build",
     "test": "./scripts/test",
     "test:verbose": "./scripts/test-verbose"
   },
