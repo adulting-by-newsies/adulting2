@@ -157,6 +157,10 @@ class CardOne extends React.Component {
 
   }
 
+  saveUserComment() {
+
+  }
+
   render() {
     const { classes } = this.props;
     return (
