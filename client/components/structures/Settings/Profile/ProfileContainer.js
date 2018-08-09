@@ -5,7 +5,7 @@ import { validateName } from '_utils/validation';
 import Profile from './Profile';
 import Checkbox from './Checkbox'
 
-const categories = ["Sports", "Politics", "Science", "Technology", "Health", "Business", "Culture", "World News", "Cooking", "Lifestyle"]
+const categories = ["Sports", "Politics", "Science", "Technology", "Health", "Business", "Culture", "Worldnews", "Cooking", "Lifestyle"]
 
 export default class ProfileContainer extends Component {
   static propTypes = {

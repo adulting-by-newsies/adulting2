@@ -16,7 +16,8 @@ export default class HomePage extends Component {
     userArticleList: [],
     userPreferences: [],
     username: "",
-    userLocal: 'false'
+    userLocal: 'false',
+    numArticles: 0,
   }
 
   componentDidMount() {
@@ -25,7 +26,6 @@ export default class HomePage extends Component {
       // console.log(data.user);
 
       //TODO: Can we just get away with a local copy of the user?
-      console.log("Show local user")
       this.setState({userLocal: data.user}, console.log(this.state.userLocal));
 
       var arr = data.user.preferences.map(x => x.toLowerCase())
@@ -34,7 +34,6 @@ export default class HomePage extends Component {
       if (data.user.preferences.length === 0){
         //TODO: Write some code to build out a default homepage
         getAllArticlesByCategory("sports").then(article => {
-          console.log(article);
         })
       } else {
         //TODO: Handle all the cases to build out the article list
@@ -52,8 +51,6 @@ export default class HomePage extends Component {
         })
 
         Promise.all(promises).then(results => {
-            console.log("This is the state ===>", this.state)
-            console.log("This is results ===>", results)
             results.forEach(articleArray => {
               articleArray.forEach(article => {
                 article.isFavorited = false;
@@ -83,7 +80,6 @@ export default class HomePage extends Component {
   }
 
   displayState(){
-    console.log('displaying state: ', this.state.userArticleList[0])
   }
 
   //This function will push userLocal back to the user Database
@@ -104,6 +100,11 @@ export default class HomePage extends Component {
 
       })
     })
+  }
+
+  updateProgress = () =>{
+    let count = this.state.numArticles;
+    this.setState({numArticles: count+1})
   }
 
   saveArticle(article){
@@ -140,17 +141,47 @@ export default class HomePage extends Component {
               <h6 className="title is-6">
                 Daily Progress
               </h6>
-              <ProgressBar />
+              <ProgressBar numArticles={this.state.numArticles}/>
             </div>
             <h2 className="title is-2" style={{ marginTop: 50 }}>
               Welcome to your personalized article feed, {this.state.username}!
 
             </h2>
-            {this.state.userPreferences[0] ? <CardOne articles={this.state.userArticleList[0]} saveArticle={this.saveArticle.bind(this)} usersSavedArticles={this.state.userLocal.savedArticles}/> : null}
-            {this.state.userPreferences[1] ? <CardOne articles={this.state.userArticleList[1]} saveArticle={this.saveArticle.bind(this)} usersSavedArticles={this.state.userLocal.savedArticles}/> : null}
-            {this.state.userPreferences[2] ? <CardOne articles={this.state.userArticleList[2]} saveArticle={this.saveArticle.bind(this)} usersSavedArticles={this.state.userLocal.savedArticles}/> : null}
-            {this.state.userPreferences[3] ? <CardOne articles={this.state.userArticleList[3]} saveArticle={this.saveArticle.bind(this)} usersSavedArticles={this.state.userLocal.savedArticles}/> : null}
-            {this.state.userPreferences[4] ? <CardOne articles={this.state.userArticleList[4]} saveArticle={this.saveArticle.bind(this)} usersSavedArticles={this.state.userLocal.savedArticles}/> : null}
+            {this.state.userPreferences[0] ? 
+              <CardOne 
+                articles={this.state.userArticleList[0]} 
+                saveArticle={this.saveArticle.bind(this)}
+                updateProgress={this.updateProgress.bind(this)} 
+                usersSavedArticles={this.state.userLocal.savedArticles}
+              /> : null}
+            {this.state.userPreferences[1] ? 
+              <CardOne 
+                articles={this.state.userArticleList[1]} 
+                saveArticle={this.saveArticle.bind(this)}
+                updateProgress={this.updateProgress.bind(this)}  
+                usersSavedArticles={this.state.userLocal.savedArticles}
+              /> : null}
+            {this.state.userPreferences[2] ? 
+              <CardOne 
+                articles={this.state.userArticleList[2]} 
+                saveArticle={this.saveArticle.bind(this)}
+                updateProgress={this.updateProgress.bind(this)}  
+                usersSavedArticles={this.state.userLocal.savedArticles}
+              /> : null}
+            {this.state.userPreferences[3] ? 
+              <CardOne 
+                articles={this.state.userArticleList[3]} 
+                saveArticle={this.saveArticle.bind(this)}
+                updateProgress={this.updateProgress.bind(this)}  
+                usersSavedArticles={this.state.userLocal.savedArticles}
+              /> : null}
+            {this.state.userPreferences[4] ? 
+                <CardOne 
+                  articles={this.state.userArticleList[4]} 
+                  saveArticle={this.saveArticle.bind(this)}
+                  updateProgress={this.updateProgress.bind(this)}  
+                  usersSavedArticles={this.state.userLocal.savedArticles}
+                /> : null}
 
           </div>
         </div>

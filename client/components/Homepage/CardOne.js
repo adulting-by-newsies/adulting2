@@ -78,12 +78,7 @@ class CardOne extends React.Component {
       return false;
 
     this.state.userFavorites.forEach(savedArticle => {
-      console.log("Comparing ")
-      console.log(savedArticle._id)
-      console.log(article._id)
       if (savedArticle._id == article._id){
-        console.log("It's a match")
-
         return true;
       }
     })
@@ -91,9 +86,7 @@ class CardOne extends React.Component {
   }
 
   addFavoriteField(){
-    console.log("Testing if no articleList")
     if (this.state.articleList.length === 0){
-      console.log("Shouldn't go any further")
       return
     } else{
       console.log(this.state.articleList)
@@ -111,22 +104,17 @@ class CardOne extends React.Component {
   }
 
   displaySaved() {
-    console.log("Displaying User Saved Articles")
-
     if (this.state.userFavorites) {
       this.state.userFavorites.forEach(article => {
-        console.log(article._id);
       })
     }
   }
 
   componentDidMount(){
-    console.log("Mounted")
     // this.addFavoriteField();
   }
 
   componentWillReceiveProps(nextProps){
-    console.log("Got props")
     this.setState({ articleList: nextProps.articles, userFavorites: nextProps.usersSavedArticles }, this.displaySaved)
   }
 
@@ -144,13 +132,14 @@ class CardOne extends React.Component {
   }
 
   openInNewTab = () => {
+    console.log('clicked')
     var url = this.state.articleList[this.state.count].url
     window.open(url, '_blank');
+    this.props.updateProgress();
   }
 
   render() {
     const { classes } = this.props;
-    console.log("Rendering CardOne")
     return (
       <Grid
         container
@@ -167,7 +156,6 @@ class CardOne extends React.Component {
             <CardMedia
               className={classes.media}
               image={this.state.articleList.length > 0 ? (this.state.articleList[this.state.count].urlToImage !== null ? this.state.articleList[this.state.count].urlToImage : missing)  : ''}
-              title="Contemplative Reptile"
               onClick={this.openInNewTab}
             />
             <CardContent>
