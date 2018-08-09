@@ -17,17 +17,14 @@ class ProgressBar extends React.Component {
 
 
   componentWillReceiveProps(newProps){
-    this.setState({numArticles: newProps})
-  }
-
-  progress = () => {
-    const { completed, numArticles } = this.state;
-    if (completed === 100) {
-      return;
-    } else {
-      this.setState({ completed: 25+numArticles });
+    let newVal = 0;
+    if(newProps.numArticles >= 4){
+      newVal = 100;  
+    }else{
+      newVal = 25*newProps.numArticles
     }
-  };
+    this.setState({completed: newVal})
+  }
 
   render() {
     const { classes } = this.props;
