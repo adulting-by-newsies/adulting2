@@ -20,13 +20,7 @@ class ArticleCommentPane extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({articleLocal: this.props.article}, this.displayState())
-    // console.log("Getting article " + this.props.article._id)
-    // getArticleById(this.props.article._id).then(data => {
-    //   // console.log("Got article " + data.article)
-    //   console.log("Title: " + data.title);
-    //   this.setState({articleLocal: data}, this.displayState())
-    // })
+    this.setState({articleLocal: this.props.article})
   }
 
   componentDidUpdate(){
@@ -38,7 +32,6 @@ class ArticleCommentPane extends React.Component {
       <div>
         {this.props.article.comments ? 
           this.props.article.comments.map(function(comment,i) {
-            console.log(comment)
             return (
               <div key={i}>
                 User {comment.user} says: {comment.comment}
@@ -49,7 +42,7 @@ class ArticleCommentPane extends React.Component {
           :
            (
             <div>
-              No comments for {this.props.article ? this.props.article.title : {}}
+              No comments for this article...
             </div>
             )
         }

@@ -129,7 +129,6 @@ class CardOne extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    console.log("Got props")
     this.setState({ articleList: nextProps.articles, userFavorites: nextProps.usersSavedArticles })
   }
 
@@ -147,7 +146,6 @@ class CardOne extends React.Component {
   }
 
   openInNewTab = () => {
-    console.log('clicked')
     var url = this.state.articleList[this.state.count].url
     window.open(url, '_blank');
     this.props.updateProgress();

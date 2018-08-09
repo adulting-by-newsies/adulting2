@@ -21,8 +21,6 @@ module.exports = {
       .find({})
       .then(dbModel =>
         dbModel.forEach(article => {
-          console.log("req.params.category");
-          console.log(req.params.category);
           if (article.category === req.params.category) {
             res.json(article);
           }
@@ -46,7 +44,6 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   updateOne: function(req, res) {
-    console.log("Got put")
     database.Article
       .findOneAndUpdate({ _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
