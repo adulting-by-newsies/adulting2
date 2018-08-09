@@ -21,8 +21,6 @@ router.get('/api/tags', (req, res) => {
 });
 
 router.get('/*', (req, res) => {
-  console.log("initial get")
-  console.log("Send on " + path.resolve(__dirname, '../../dist', 'index.html'))
   res.sendFile(path.resolve(__dirname, '../../dist', 'index.html'));
 });
 

@@ -22,8 +22,6 @@ authConfig(app, express);
 
 app.use('/', routes);
 
-console.log("__dirname")
-console.log(__dirname)
 
 // News API Call here
 var results = [];
@@ -32,8 +30,6 @@ var results = [];
 // of aggregating all the articles
 newsAPI.scrapeArticles().then(function(response){
   results = app.get('/api/articles/');
-  console.log("results");
-  console.log(results);
   
 });
 // for (var i = 0; i < 100; i++){

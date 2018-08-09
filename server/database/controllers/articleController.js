@@ -21,8 +21,6 @@ module.exports = {
       .find({})
       .then(dbModel =>
         dbModel.forEach(article => {
-          console.log("req.params.category");
-          console.log(req.params.category);
           if (article.category === req.params.category) {
             res.json(article);
           }
@@ -43,6 +41,12 @@ module.exports = {
         // })
         res.json(dbModel)
       )
+      .catch(err => res.status(422).json(err));
+  },
+  updateOne: function(req, res) {
+    database.Article
+      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {

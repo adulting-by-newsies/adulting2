@@ -13,6 +13,7 @@ router.route("/")
 router
   .route("/:id")
   .get(articleController.findById)
+  .put(articleController.updateOne)
   .delete(articleController.remove);
 
 router

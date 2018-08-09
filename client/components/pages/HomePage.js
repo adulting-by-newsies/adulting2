@@ -7,7 +7,7 @@ import CardFive from '../Homepage/CardFive.js';
 import ProgressBar from '../Homepage/ProgressBar.js';
 
 import {
-  postRegister, postLogin, postLogout, getUser, putUser, putUserPassword, getArticleByCategory, getAllArticlesByCategory
+  getUser, putUser, getArticleByCategory, getAllArticlesByCategory, updateArticleById
 } from '../../utils/api';
 
 export default class HomePage extends Component {
@@ -22,11 +22,9 @@ export default class HomePage extends Component {
 
   componentDidMount() {
     getUser().then(data => {
-      // console.log("User is ");
-      // console.log(data.user);
 
       //TODO: Can we just get away with a local copy of the user?
-      this.setState({userLocal: data.user}, console.log(this.state.userLocal));
+      this.setState({userLocal: data.user});
 
       var arr = data.user.preferences.map(x => x.toLowerCase())
 
@@ -58,7 +56,6 @@ export default class HomePage extends Component {
                 if (data.user.savedArticles){
                   data.user.savedArticles.forEach(savedArticle => {
                     if (savedArticle._id === article._id){
-                      console.log(article);
                       article.isFavorited = true;
                     }
                   })
@@ -132,6 +129,27 @@ export default class HomePage extends Component {
     }
   }
 
+  saveUserComment(article, comment){
+    var comment = {user: this.state.userLocal.username, comment: comment}
+    if (!article.comments) {
+      article.comments = []
+    }
+    article.comments.push(comment)
+    updateArticleById(article._id, article);
+
+    var cachedArticles = this.state.userArticleList;
+
+    cachedArticles.forEach(cachedArticle => {
+      if(cachedArticle._id === article._id){
+        if(!cachedArticle.comments) {
+          cachedArticle.comments = [];
+        }
+        cachedArticle.comments.push(comment);
+      }
+    })
+    this.setState({userArticleList: cachedArticles})
+  }
+
   render() {
     return (
       <div className="home-page">
@@ -153,6 +171,7 @@ export default class HomePage extends Component {
                 saveArticle={this.saveArticle.bind(this)}
                 updateProgress={this.updateProgress.bind(this)} 
                 usersSavedArticles={this.state.userLocal.savedArticles}
+                saveUserComment={this.saveUserComment.bind(this)}
               /> : null}
             {this.state.userPreferences[1] ? 
               <CardOne 
@@ -160,6 +179,7 @@ export default class HomePage extends Component {
                 saveArticle={this.saveArticle.bind(this)}
                 updateProgress={this.updateProgress.bind(this)}  
                 usersSavedArticles={this.state.userLocal.savedArticles}
+                saveUserComment={this.saveUserComment.bind(this)}
               /> : null}
             {this.state.userPreferences[2] ? 
               <CardOne 
@@ -167,6 +187,7 @@ export default class HomePage extends Component {
                 saveArticle={this.saveArticle.bind(this)}
                 updateProgress={this.updateProgress.bind(this)}  
                 usersSavedArticles={this.state.userLocal.savedArticles}
+                saveUserComment={this.saveUserComment.bind(this)}
               /> : null}
             {this.state.userPreferences[3] ? 
               <CardOne 
@@ -174,14 +195,16 @@ export default class HomePage extends Component {
                 saveArticle={this.saveArticle.bind(this)}
                 updateProgress={this.updateProgress.bind(this)}  
                 usersSavedArticles={this.state.userLocal.savedArticles}
+                saveUserComment={this.saveUserComment.bind(this)}
               /> : null}
             {this.state.userPreferences[4] ? 
-                <CardOne 
-                  articles={this.state.userArticleList[4]} 
-                  saveArticle={this.saveArticle.bind(this)}
-                  updateProgress={this.updateProgress.bind(this)}  
-                  usersSavedArticles={this.state.userLocal.savedArticles}
-                /> : null}
+              <CardOne 
+                articles={this.state.userArticleList[4]} 
+                saveArticle={this.saveArticle.bind(this)}
+                updateProgress={this.updateProgress.bind(this)}  
+                usersSavedArticles={this.state.userLocal.savedArticles}
+                saveUserComment={this.saveUserComment.bind(this)}
+              /> : null}
 
           </div>
         </div>

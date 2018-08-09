@@ -64,3 +64,14 @@ export const getAllArticlesByCategory = category =>
   request.get('/api/articles/all-by-category/' + category)
     .then(handleSuccess)
     .catch(handleError);
+
+export const getArticleById = id => 
+  request.get('/api/articles/' + id)
+    .then(handleSuccess)
+    .catch(handleError);
+
+export const updateArticleById = (id, info) =>
+  request.put('/api/articles/' + id)
+    .send(info)
+    .then(handleSuccess)
+    .catch(handleError);
