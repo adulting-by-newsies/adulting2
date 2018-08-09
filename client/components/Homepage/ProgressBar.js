@@ -10,29 +10,21 @@ const styles = {
 };
 
 class ProgressBar extends React.Component {
-  timer = null;
-
   state = {
     completed: 0,
+    numArticles: 0,
   };
 
-  componentDidMount() {
-    this.timer = setInterval(this.progress, 500);
-  }
 
-  componentWillUnmount() {
-    clearInterval(this.timer);
-  }
-
-  progress = () => {
-    const { completed } = this.state;
-    if (completed === 100) {
-      this.setState({ completed: 0 });
-    } else {
-      const diff = Math.random() * 10;
-      this.setState({ completed: Math.min(completed + diff, 100) });
+  componentWillReceiveProps(newProps){
+    let newVal = 0;
+    if(newProps.numArticles >= 4){
+      newVal = 100;  
+    }else{
+      newVal = 25*newProps.numArticles
     }
-  };
+    this.setState({completed: newVal})
+  }
 
   render() {
     const { classes } = this.props;

@@ -116,17 +116,13 @@ class CardOne extends React.Component {
   }
 
   displaySaved() {
-    console.log("Displaying User Saved Articles")
-
     if (this.state.userFavorites) {
       this.state.userFavorites.forEach(article => {
-        console.log(article._id);
       })
     }
   }
 
   componentDidMount(){
-    console.log("Mounted")
     // this.addFavoriteField();
   }
 
@@ -149,13 +145,14 @@ class CardOne extends React.Component {
   }
 
   openInNewTab = () => {
+    console.log('clicked')
     var url = this.state.articleList[this.state.count].url
     window.open(url, '_blank');
+    this.props.updateProgress();
   }
 
   render() {
     const { classes } = this.props;
-    console.log("Rendering CardOne")
     return (
       <Grid
         container
@@ -172,7 +169,6 @@ class CardOne extends React.Component {
             <CardMedia
               className={classes.media}
               image={this.state.articleList.length > 0 ? (this.state.articleList[this.state.count].urlToImage !== null ? this.state.articleList[this.state.count].urlToImage : missing)  : ''}
-              title="Contemplative Reptile"
               onClick={this.openInNewTab}
             />
             <CardContent>
