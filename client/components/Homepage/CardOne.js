@@ -180,6 +180,9 @@ class CardOne extends React.Component {
               onClick={this.openInNewTab}
             />
             <CardContent>
+              <h4 className="title is-4">
+                {this.state.articleList.length > 0 ? this.state.articleList[this.state.count].title : ''}
+              </h4>
               <Typography component="p">
                 {this.state.articleList.length > 0 ? this.state.articleList[this.state.count].description : ''}
               </Typography>

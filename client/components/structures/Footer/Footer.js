@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="footer" style={{background: '#B0C4DE'}}>
       <div className="container">
         <div className="content has-text-centered">
-          <p>
+          <p style={{fontFamily: 'Permanent Marker',}}>
             {`Copyright ${year} Adulting. All Rights Reserved.`}
           </p>
         </div>
