@@ -153,12 +153,8 @@ class CardOne extends React.Component {
     this.props.updateProgress();
   }
 
-  saveUserComment() {
-
-  }
-
-  saveUserComment() {
-
+  handleCommentChange = event => {
+    this.setState({comment: event.target.value})
   }
 
   render() {
@@ -216,9 +212,10 @@ class CardOne extends React.Component {
                   fullWidth
                   margin="normal"
                   value={this.state.comment}
+                  onChange={this.handleCommentChange}
                 />
               </form>
-              <Button className={classes.button} onClick={() => {this.saveUserComment(this.state.articleList[this.state.count])}}>
+              <Button className={classes.button} onClick={() => {this.props.saveUserComment(this.state.articleList[this.state.count], this.state.comment)}}>
                 Submit
               </Button>
             </CardContent>

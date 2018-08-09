@@ -132,6 +132,12 @@ export default class HomePage extends Component {
     }
   }
 
+  saveUserComment(article, comment){
+    console.log("User " + this.state.userLocal.username);
+    console.log("Comments " + comment);
+    console.log("On article " + article._id)
+  }
+
   render() {
     return (
       <div className="home-page">
@@ -153,6 +159,7 @@ export default class HomePage extends Component {
                 saveArticle={this.saveArticle.bind(this)}
                 updateProgress={this.updateProgress.bind(this)} 
                 usersSavedArticles={this.state.userLocal.savedArticles}
+                saveUserComment={this.saveUserComment.bind(this)}
               /> : null}
             {this.state.userPreferences[1] ? 
               <CardOne 
@@ -160,6 +167,7 @@ export default class HomePage extends Component {
                 saveArticle={this.saveArticle.bind(this)}
                 updateProgress={this.updateProgress.bind(this)}  
                 usersSavedArticles={this.state.userLocal.savedArticles}
+                saveUserComment={this.saveUserComment.bind(this)}
               /> : null}
             {this.state.userPreferences[2] ? 
               <CardOne 
@@ -167,6 +175,7 @@ export default class HomePage extends Component {
                 saveArticle={this.saveArticle.bind(this)}
                 updateProgress={this.updateProgress.bind(this)}  
                 usersSavedArticles={this.state.userLocal.savedArticles}
+                saveUserComment={this.saveUserComment.bind(this)}
               /> : null}
             {this.state.userPreferences[3] ? 
               <CardOne 
@@ -174,14 +183,16 @@ export default class HomePage extends Component {
                 saveArticle={this.saveArticle.bind(this)}
                 updateProgress={this.updateProgress.bind(this)}  
                 usersSavedArticles={this.state.userLocal.savedArticles}
+                saveUserComment={this.saveUserComment.bind(this)}
               /> : null}
             {this.state.userPreferences[4] ? 
-                <CardOne 
-                  articles={this.state.userArticleList[4]} 
-                  saveArticle={this.saveArticle.bind(this)}
-                  updateProgress={this.updateProgress.bind(this)}  
-                  usersSavedArticles={this.state.userLocal.savedArticles}
-                /> : null}
+              <CardOne 
+                articles={this.state.userArticleList[4]} 
+                saveArticle={this.saveArticle.bind(this)}
+                updateProgress={this.updateProgress.bind(this)}  
+                usersSavedArticles={this.state.userLocal.savedArticles}
+                saveUserComment={this.saveUserComment.bind(this)}
+              /> : null}
 
           </div>
         </div>

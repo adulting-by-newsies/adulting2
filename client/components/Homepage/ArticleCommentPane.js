@@ -8,7 +8,7 @@ class ArticleCommentPane extends React.Component {
   }
 
   displayState() {
-    console.log(this.state)
+    // console.log(this.state)
   }
 
   componentDidMount() {
