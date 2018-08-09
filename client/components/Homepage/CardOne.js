@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ArticleCommentPane from './ArticleCommentPane';
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import Grid from '@material-ui/core/Grid';
@@ -81,6 +82,7 @@ class CardOne extends React.Component {
     count: 0,
     window: window,
     expanded: false,
+    comment: ""
   };
 
   //Runs through the users saved articles and attaches a isFavorited value of true if it
@@ -151,6 +153,10 @@ class CardOne extends React.Component {
     this.props.updateProgress();
   }
 
+  saveUserComment() {
+
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -205,9 +211,10 @@ class CardOne extends React.Component {
                   helperText="Say something insightful!"
                   fullWidth
                   margin="normal"
+                  value={this.state.comment}
                 />
               </form>
-              <Button className={classes.button}>
+              <Button className={classes.button} onClick={() => {this.saveUserComment(this.state.articleList[this.state.count])}}>
                 Submit
               </Button>
             </CardContent>

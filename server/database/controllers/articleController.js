@@ -45,6 +45,12 @@ module.exports = {
       )
       .catch(err => res.status(422).json(err));
   },
+  update: function(req, res) {
+    database.Article
+      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   create: function(req, res) {
     database.Article
       .create(req.body)
