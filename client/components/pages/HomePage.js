@@ -16,7 +16,8 @@ export default class HomePage extends Component {
     userArticleList: [],
     userPreferences: [],
     username: "",
-    userLocal: 'false'
+    userLocal: 'false',
+    numArticles: 0,
   }
 
   componentDidMount() {
@@ -52,8 +53,6 @@ export default class HomePage extends Component {
         })
 
         Promise.all(promises).then(results => {
-            console.log("This is the state ===>", this.state)
-            console.log("This is results ===>", results)
             results.forEach(articleArray => {
               articleArray.forEach(article => {
                 article.isFavorited = false;
@@ -96,6 +95,11 @@ export default class HomePage extends Component {
         })
       })
     })
+  }
+
+  updateProgress = () =>{
+    let count = this.state.numArticles;
+    this.setState({numArticles: count+1})
   }
 
   saveArticle(article){

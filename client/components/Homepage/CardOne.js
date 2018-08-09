@@ -165,7 +165,7 @@ class CardOne extends React.Component {
               className={classes.media}
               image={this.state.articleList.length > 0 ? (this.state.articleList[this.state.count].urlToImage !== null ? this.state.articleList[this.state.count].urlToImage : missing)  : ''}
               title="Contemplative Reptile"
-              onClick={this.openInNewTab}
+              onClick={() => {this.openInNewTab; this.props.updateProgress;}}
             />
             <CardContent>
               <Typography component="p">
