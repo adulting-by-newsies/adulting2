@@ -157,6 +157,10 @@ class CardOne extends React.Component {
     this.setState({comment: event.target.value})
   }
 
+  resetForm() {
+    this.setState({comment: ""})
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -215,7 +219,7 @@ class CardOne extends React.Component {
                   onChange={this.handleCommentChange}
                 />
               </form>
-              <Button className={classes.button} onClick={() => {this.props.saveUserComment(this.state.articleList[this.state.count], this.state.comment)}}>
+              <Button className={classes.button} onClick={() => {this.props.saveUserComment(this.state.articleList[this.state.count], this.state.comment); this.resetForm();}}>
                 Submit
               </Button>
             </CardContent>
