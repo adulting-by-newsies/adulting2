@@ -12,6 +12,7 @@ import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 import red from '@material-ui/core/colors/red';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
@@ -21,6 +22,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import missing from '../pages/icon-missing-image.png';
 import ReactDOM from 'react-dom'
+import Button from '@material-ui/core/Button';
 
 import {
   getUser, putUser, putUserPassword, getArticleByCategory, getAllArticlesByCategory
@@ -58,7 +60,16 @@ const styles = theme => ({
   },
   FavoriteIconActive: {
     background: 'linear-gradient(45deg, #2196f3 30%, #21cbf3 90%)'
-  }
+  },
+  button: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    borderRadius: 3,
+    border: 0,
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+  },
 });
 
 class CardOne extends React.Component {
@@ -69,6 +80,7 @@ class CardOne extends React.Component {
     userFavorites: [],
     count: 0,
     window: window,
+    expanded: false,
   };
 
   //Runs through the users saved articles and attaches a isFavorited value of true if it
@@ -78,11 +90,7 @@ class CardOne extends React.Component {
       return false;
 
     this.state.userFavorites.forEach(savedArticle => {
-      console.log("Comparing ")
-      console.log(savedArticle._id)
-      console.log(article._id)
       if (savedArticle._id == article._id){
-        console.log("It's a match")
 
         return true;
       }
@@ -91,12 +99,9 @@ class CardOne extends React.Component {
   }
 
   addFavoriteField(){
-    console.log("Testing if no articleList")
     if (this.state.articleList.length === 0){
-      console.log("Shouldn't go any further")
       return
     } else{
-      console.log(this.state.articleList)
     }
 
     var temp = this.state.articleList;
@@ -124,7 +129,7 @@ class CardOne extends React.Component {
 
   componentWillReceiveProps(nextProps){
     console.log("Got props")
-    this.setState({ articleList: nextProps.articles, userFavorites: nextProps.usersSavedArticles }, this.displaySaved)
+    this.setState({ articleList: nextProps.articles, userFavorites: nextProps.usersSavedArticles })
   }
 
   componentDidUpdate(){
@@ -181,13 +186,32 @@ class CardOne extends React.Component {
                 ></FavoriteIcon>
               </IconButton>
               <IconButton aria-label="comment">
-                <Comment />
+                <Comment onClick={() => this.handleExpandClick()}/>
               </IconButton>
               <IconButton aria-label="refresh">
                 <Refresh onClick={this.incrementCount}/>
               </IconButton>
             </CardActions>
             <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+              <ArticleCommentPane article={this.state.articleList[this.state.count]}/>
+              <form className={classes.container} noValidate autoComplete="off">
+                <TextField
+                  id="full-width"
+                  label="User Comment"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  placeholder="Add Your Comment"
+                  helperText="Say something insightful!"
+                  fullWidth
+                  margin="normal"
+                />
+              </form>
+              <Button className={classes.button}>
+                Submit
+              </Button>
+            </CardContent>
             </Collapse>
           </Card>
         </div>
@@ -197,6 +221,7 @@ class CardOne extends React.Component {
 }
 
 CardOne.propTypes = {
+  children: PropTypes.node,
   classes: PropTypes.object.isRequired,
 };
 

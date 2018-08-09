@@ -25,7 +25,6 @@ export default class HomePage extends Component {
       // console.log(data.user);
 
       //TODO: Can we just get away with a local copy of the user?
-      console.log("Show local user")
       this.setState({userLocal: data.user}, console.log(this.state.userLocal));
 
       var arr = data.user.preferences.map(x => x.toLowerCase())
@@ -52,14 +51,11 @@ export default class HomePage extends Component {
         })
 
         Promise.all(promises).then(results => {
-            console.log("This is the state ===>", this.state)
-            console.log("This is results ===>", results)
             results.forEach(articleArray => {
               articleArray.forEach(article => {
                 article.isFavorited = false;
                 data.user.savedArticles.forEach(savedArticle => {
                   if (savedArticle._id === article._id){
-                    console.log(article);
                     article.isFavorited = true;
                   }
                 })
