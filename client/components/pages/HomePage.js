@@ -54,11 +54,16 @@ export default class HomePage extends Component {
             results.forEach(articleArray => {
               articleArray.forEach(article => {
                 article.isFavorited = false;
-                data.user.savedArticles.forEach(savedArticle => {
-                  if (savedArticle._id === article._id){
-                    article.isFavorited = true;
-                  }
-                })
+
+                if (data.user.savedArticles){
+                  data.user.savedArticles.forEach(savedArticle => {
+                    if (savedArticle._id === article._id){
+                      console.log(article);
+                      article.isFavorited = true;
+                    }
+                  })
+                }
+
               })
             })
             this.setState({userArticleList: results}, this.displayState)
@@ -84,12 +89,16 @@ export default class HomePage extends Component {
     //Have to manually update the local copy of the userArticleList
     this.state.userArticleList.forEach(articleArray => {
       articleArray.forEach(article => {
-        this.state.userLocal.savedArticles.forEach(savedArticle => {
-          article.isFavorited = false;
-          if (savedArticle._id === article._id){
-            article.isFavorited = true;
-          }
-        })
+        article.isFavorited = false;
+        
+        if (this.state.userLocal.savedArticles) {
+          this.state.userLocal.savedArticles.forEach(savedArticle => {
+            if (savedArticle._id === article._id){
+              article.isFavorited = true;
+            }
+          })
+        }
+
       })
     })
   }

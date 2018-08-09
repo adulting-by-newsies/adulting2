@@ -117,9 +117,12 @@ class CardOne extends React.Component {
 
   displaySaved() {
     console.log("Displaying User Saved Articles")
-    this.state.userFavorites.forEach(article => {
-      console.log(article._id);
-    })
+
+    if (this.state.userFavorites) {
+      this.state.userFavorites.forEach(article => {
+        console.log(article._id);
+      })
+    }
   }
 
   componentDidMount(){
