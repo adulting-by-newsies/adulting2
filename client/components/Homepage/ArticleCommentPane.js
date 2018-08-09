@@ -5,9 +5,13 @@ class ArticleCommentPane extends React.Component {
 
   state = {
     articleLocal: {},
+    commentsArray: []
   }
 
   displayState() {
+    if (this.state.articleLocal.comments){
+      console.log(this.state.articleLocal.comments)
+    }
     // console.log(this.state)
   }
 
@@ -30,17 +34,19 @@ class ArticleCommentPane extends React.Component {
       <div>
         {this.props.article.comments ? 
           this.props.article.comments.map(function(comment,i) {
-          })
-            (
-            <li key={comment._id}>
+            console.log(comment)
+            return (
+            <li key={i}>
               <div>
-                User {i} says
+                User {comment.user} says
               </div>
               <div>
-                comment
+                {comment.comment}
               </div>
             </li>
             )
+          })
+
           :
            (
             <div>

@@ -70,7 +70,8 @@ export const getArticleById = id =>
     .then(handleSuccess)
     .catch(handleError);
 
-export const updateArticleById = id =>
+export const updateArticleById = (id, info) =>
   request.put('/api/articles/' + id)
+    .send(info)
     .then(handleSuccess)
     .catch(handleError);

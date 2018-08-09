@@ -7,7 +7,7 @@ import CardFive from '../Homepage/CardFive.js';
 import ProgressBar from '../Homepage/ProgressBar.js';
 
 import {
-  postRegister, postLogin, postLogout, getUser, putUser, putUserPassword, getArticleByCategory, getAllArticlesByCategory
+  getUser, putUser, getArticleByCategory, getAllArticlesByCategory, updateArticleById
 } from '../../utils/api';
 
 export default class HomePage extends Component {
@@ -136,6 +136,12 @@ export default class HomePage extends Component {
     console.log("User " + this.state.userLocal.username);
     console.log("Comments " + comment);
     console.log("On article " + article._id)
+    var comment = {user: this.state.userLocal.username, comment: comment}
+    if (!article.comments) {
+      article.comments = []
+    }
+    article.comments.push(comment)
+    updateArticleById(article._id, article);
   }
 
   render() {
