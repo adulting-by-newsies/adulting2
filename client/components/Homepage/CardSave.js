@@ -61,7 +61,7 @@ const styles = theme => ({
   }
 });
 
-class CardOne extends React.Component {
+class CardSave extends React.Component {
   
   state = { 
     expanded: false ,
@@ -71,75 +71,28 @@ class CardOne extends React.Component {
     window: window,
   };
 
-  //Runs through the users saved articles and attaches a isFavorited value of true if it
-  //has already been favorited
-  tellIfFavorited(article){
-    if (this.state.userFavorites === [])
-      return false;
-
-    this.state.userFavorites.forEach(savedArticle => {
-      if (savedArticle._id == article._id){
-        return true;
-      }
-    })
-    return false;
-  }
-
-  addFavoriteField(){
-    if (this.state.articleList.length === 0){
-      return
-    } else{
-      console.log(this.state.articleList)
-    }
-
-    var temp = this.state.articleList;
-    if(this.tellIfFavorited(this.state.articleList[this.state.count])){
-      temp[this.state.count].isFavorited = true;
-
-    } else {
-      temp[this.state.count].isFavorited = false;
-
-    }
-    this.setState({articleList: temp})
-  }
-
-  displaySaved() {
-    if (this.state.userFavorites) {
-      this.state.userFavorites.forEach(article => {
-      })
-    }
-  }
-
   componentDidMount(){
+    console.log("Mounted")
     // this.addFavoriteField();
   }
 
-  componentWillReceiveProps(nextProps){
-    this.setState({ articleList: nextProps.articles, userFavorites: nextProps.usersSavedArticles }, this.displaySaved)
-  }
-
   componentDidUpdate(){
-
   }
 
-  handleExpandClick = () => {
-    this.setState(state => ({ expanded: !state.expanded }));
-  };
-
-  incrementCount = () => {
-    const newCount = this.state.count < 4 ? this.state.count+1 : 0;
-    this.setState({count: newCount})
+  componentWillReceiveProps(nextProps){
+    console.log("Got props")
+    console.log(nextProps)
+    this.setState({ articleList: nextProps.articles})
   }
 
   openInNewTab = () => {
-    console.log('clicked')
     var url = this.state.articleList[this.state.count].url
     window.open(url, '_blank');
-    this.props.updateProgress();
   }
 
   render() {
     const { classes } = this.props;
+    console.log("Rendering CardSave")
     return (
       <Grid
         container
@@ -151,36 +104,18 @@ class CardOne extends React.Component {
         <div style={{ marginBottom: 20, marginTop: 10 }}>
           <Card className={classes.card} style={{fontFamily: 'Permanent Marker'}}>
             <CardHeader
-              title={this.state.articleList.length > 0 ? this.state.articleList[this.state.count].category.toUpperCase() : ''}
-            />
+              title="Placeholder"
+                          />
             <CardMedia
               className={classes.media}
-              image={this.state.articleList.length > 0 ? (this.state.articleList[this.state.count].urlToImage !== null ? this.state.articleList[this.state.count].urlToImage : missing)  : ''}
+              title="Contemplative Reptile"
               onClick={this.openInNewTab}
             />
             <CardContent>
-              <h4 className="title is-4">
-                {this.state.articleList.length > 0 ? this.state.articleList[this.state.count].title : ''}
-              </h4>
               <Typography component="p">
-                {this.state.articleList.length > 0 ? this.state.articleList[this.state.count].description : ''}
+                "Placeholder"
               </Typography>
             </CardContent>
-            <CardActions className={classes.actions} disableActionSpacing>
-              <IconButton aria-label="Add to favorites">
-                <FavoriteIcon 
-                  style={this.state.articleList.length > 0 ? (this.state.articleList[this.state.count].isFavorited ? {color: red[500]} : {}): {}}
-
-                  onClick={() => {this.state.articleList[this.state.count].isFavorited = true; this.props.saveArticle(this.state.articleList[this.state.count]); }}
-                ></FavoriteIcon>
-              </IconButton>
-              <IconButton aria-label="comment">
-                <Comment />
-              </IconButton>
-              <IconButton aria-label="refresh">
-                <Refresh onClick={this.incrementCount}/>
-              </IconButton>
-            </CardActions>
             <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
             </Collapse>
           </Card>
@@ -190,8 +125,8 @@ class CardOne extends React.Component {
   }
 }
 
-CardOne.propTypes = {
+CardSave.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CardOne);
+export default withStyles(styles)(CardSave);

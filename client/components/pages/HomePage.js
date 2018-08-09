@@ -137,10 +137,10 @@ export default class HomePage extends Component {
       <div className="home-page">
         <div className="section">
           <div className="container">
-            <div className="container" style={{ position: 'absolute', top: 10, right: -10, width: 120 }}>
-              <h6 className="title is-6">
+            <div className="container" style={{ position: 'absolute', top: 10, right: -10, width: 180 }}>
+              <h5 className="title is-65" style={{fontFamily: 'Permanent Marker',}}>
                 Daily Progress
-              </h6>
+              </h5>
               <ProgressBar numArticles={this.state.numArticles}/>
             </div>
             <h2 className="title is-2" style={{ marginTop: 50 }}>
