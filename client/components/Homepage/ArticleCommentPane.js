@@ -1,8 +1,11 @@
 import React from 'react';
 import { getArticleById } from '../../utils/api';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
-
+  Typography: {
+    textAlign: 'left',
+  }
 })
 
 class ArticleCommentPane extends React.Component {
@@ -34,7 +37,12 @@ class ArticleCommentPane extends React.Component {
           this.props.article.comments.map(function(comment,i) {
             return (
               <div key={i}>
-                User {comment.user} says: {comment.comment}
+                <Typography variant="title" gutterBottom style={{textAlign: 'left'}}>
+                  {comment.user}
+                </Typography>
+                <Typography variant="body2" gutterBottom style={{textAlign: 'left'}}>
+                  {comment.comment}
+                </Typography>
               </div>
             )
           })
