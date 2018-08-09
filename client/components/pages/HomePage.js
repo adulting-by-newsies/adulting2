@@ -142,6 +142,18 @@ export default class HomePage extends Component {
     }
     article.comments.push(comment)
     updateArticleById(article._id, article);
+
+    var cachedArticles = this.state.userArticleList;
+
+    cachedArticles.forEach(cachedArticle => {
+      if(cachedArticle._id === article._id){
+        if(!cachedArticle.comments) {
+          cachedArticle.comments = [];
+        }
+        cachedArticle.comments.push(comment);
+      }
+    })
+    this.setState({userArticleList: cachedArticles})
   }
 
   render() {

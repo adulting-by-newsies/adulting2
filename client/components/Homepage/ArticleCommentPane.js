@@ -1,6 +1,10 @@
 import React from 'react';
 import { getArticleById } from '../../utils/api';
 
+const styles = theme => ({
+
+})
+
 class ArticleCommentPane extends React.Component {
 
   state = {
@@ -36,14 +40,9 @@ class ArticleCommentPane extends React.Component {
           this.props.article.comments.map(function(comment,i) {
             console.log(comment)
             return (
-            <li key={i}>
-              <div>
-                User {comment.user} says
+              <div key={i}>
+                User {comment.user} says: {comment.comment}
               </div>
-              <div>
-                {comment.comment}
-              </div>
-            </li>
             )
           })
 
